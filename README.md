@@ -1,32 +1,32 @@
-# Estadistica2
+# TrabajoE2
 
-# Integrantes
+Integrantes:
 
-# Wen Adrianzén - 20150631
-# Pedro Sanchez - 20189876
-# juan Fernandez - 20134567
+1. Gianfranco Polar (20200841)
+2. Sebastian Calero (20190100)
+3. Alexander Salazar (20203899) 
 
-Selección del tema
-El tema es blah blah. La variable dependiente es blah blah blah
 
-Variables Independientes
+### Selección del tema:
 
-Wen Adrianzén
+El tema a tratar es la desigualdad del ingreso de cada país. Nuestra variable dependiende es el coeficiente de GINI, el cual mide la desigualdad económica en la distribución del ingreso familiar.
 
-Variable independiente 1:
-La variable será extraida del Democracy Index 2018 (archivo demo18)
-Se seleccionó esta variable porque blah blah
-Variable independiente 2: justificación
-Variable independiente 3: justificación
+### Variables Independientes:
 
-Pedro
+### Gianfranco Polar
 
-Variable independiente 1b: justificación
-Variable independiente 2b: justificación
-Variable independiente 3b: justificación
+1. Impuestos y otros ingresos: La variable será extraida del Central Intelligence Agency ("""""archivo demo18""""").
+2. Exportaciones de metales y minerales: justificación. La variable será extraida del World Bank ("""""archivo demo18""""").
+3. Población urbana: justificación. La variable será extraida del World Bank ("""""archivo demo18""""").
 
-Juan
+### Sebastian Calero
 
-Variable independiente 1c: justificación
-Variable independiente 2c: justificación
-Variable independiente 3c: justificación
+1. Sueldo promedio por adulto: justificación. La variable será extraida del World Inequality Database ("""""archivo demo18""""").
+2. Migración neta: justificación. La variable será extraida del World Bank ("""""archivo demo18""""").
+3. Tasa de mortalidad en un año (por cada 1.000 personas): justificación. La variable será extraida del World Bank ("""""archivo demo18""""").
+
+### Alexander Salazar
+
+1. Gasto público en educación, total (% del gasto del gobierno): justificación. La variable será extraida del World Bank ("""""archivo demo18""""").
+2. Desempleo, total (% de la población activa total). La variable será extraida del World Bank ("""""archivo demo18""""").
+3. Tasa de alfabetización, total de jóvenes (% de personas entre 15 y 24 años). La variable será extraida del World Bank ("""""archivo demo18""""").
