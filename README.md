@@ -29,4 +29,4 @@ El tema a tratar es la desigualdad del ingreso de cada país. Nuestra variable d
 
 1. Gasto público en educación, total (% del gasto del gobierno): justificación. La variable será extraida del World Bank ("""""archivo demo18""""").
 2. Desempleo, total (% de la población activa total). La variable será extraida del World Bank ("""""archivo demo18""""").
-3. Tasa de alfabetización, total de jóvenes (% de personas entre 15 y 24 años). La variable será extraida del World Bank ("""""archivo demo18""""").
+3. Esperanza de vida al nacer, total (años). La variable será extraida del World Bank ("""""archivo demo18""""").
