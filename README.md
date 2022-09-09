@@ -1,10 +1,10 @@
 # Estadistica2
 
-Integrantes
+# Integrantes
 
-Wen Adrianzén - 20150631
-Pedro Sanchez - 20189876
-juan Fernandez - 20134567
+# Wen Adrianzén - 20150631
+# Pedro Sanchez - 20189876
+# juan Fernandez - 20134567
 
 Selección del tema
 El tema es blah blah. La variable dependiente es blah blah blah
