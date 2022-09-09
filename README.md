@@ -9,7 +9,7 @@ Integrantes:
 
 ### Selección del tema:
 
-El tema a tratar es la desigualdad del ingreso de cada país. Nuestra variable dependiende es el coeficiente de GINI, el cual mide la desigualdad económica en la distribución del ingreso familiar.
+El tema a tratar es la desigualdad del ingreso de cada país. Nuestra variable dependiente es el coeficiente de GINI, el cual mide la desigualdad económica en la distribución del ingreso familiar.
 
 ### Variables Independientes:
 
