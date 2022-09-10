@@ -23,7 +23,7 @@ coeficiente, mayor desigualdad se presentará.
       - Justificación: Nos ayudará a responder si los Estados, a través de su capacidad de recaudación, son capaces de utilizar los ingresos para redistribuir adecuadamente la riqueza entre sus habitantes.
 2. Exportaciones de metales y minerales
       - Base de datos: Banco Mundial (data_gianfranco)
-      - Justificación: Esta variable permite conocer si se presenta mayor o menor desigualdad en países con economías basadas en la exportación de bienes y servicios, es decir aquellas más modernizadas en contraposición a las basadas en exportación de materias primas.
+      - Justificación: Esta variable permite conocer si se presenta mayor o menor desigualdad en países con economías basadas en la exportación de bienes y servicios, es decir, aquellas más modernizadas, en contraposición a las basadas en exportación de materias primas.
 3. Población urbana
       - Base de datos: Banco Mundial (data_gianfranco)
       - Justificación: Permite conocer si el fenómeno de la desigualdad, que es más frecuente en las ciudades, se extrapola a nivel país, según la distribución urbana o rural de su población.
