@@ -31,13 +31,13 @@ coeficiente, mayor desigualdad se presentará.
 ### Sebastian Calero
 
 1. Sueldo promedio por adulto
-      - Base de datos: 
+      - Base de datos: World Inequality Database (Income_adult)
       - Justificación: Nos ayuda a distinguir las diferencias entre la percepción de ingresos promedio de un adulto en un determinado país en comparación a la percepción de otro adulto ubicado en otro continente. De esa manera, establecer si los sueldos promedios impactan o no en la desigualdad de ingresos en cada país.
 2. Crecimiento poblacional
-      - Base de datos: 
-      - Justificación: Nos permite aclarar si una mayor población conlleva a una mayor desigualdad económica. Así, reuslta pertinente esclarecer las diferencias entre un país superpoblado y uno  
+      - Base de datos: CIA (Population_growth)
+      - Justificación: Nos permitirá saber si el índice de crecimiento poblacional, entendida como mayor población apta para trabajar, influye en mayor o menor medida en la desigualdad de ingresos en cada Estado. 
 3. Tasa de mortalidad en un año (por cada 1.000 personas)
-      - Base de datos: 
+      - Base de datos: Banco Mundial (Mortality_rate)
       - Justificación: Nos permite calcular cuántas vidas humanas se pierden por año en cada territorio y poder establecer una comparación en el impacto de pérdidas de vida como productoras de ingreso dentro de la economía de cada país.
 
 ### Alexander Salazar
