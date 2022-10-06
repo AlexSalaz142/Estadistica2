@@ -12,8 +12,8 @@ Integrantes:
 El tema a tratar es la desigualdad del ingreso de cada país. Nuestra variable dependiente es el coeficiente de GINI, el cual mide la desigualdad económica en la distribución del ingreso familiar.
 El coeficiente de Gini fue elegido debido a que permite conocer de qué manera se distribuyen los ingresos entre los habitantes de un país. Mientras más alto sea el
 coeficiente, mayor desigualdad se presentará.
-      Base de datos: CIA (Gini.coeff)
 
+Base de datos: CIA (Gini.coeff)
 
 ### Variables Independientes:
 
@@ -41,7 +41,9 @@ coeficiente, mayor desigualdad se presentará.
       - Base de datos: Banco Mundial (Mortality_rate)
       - Justificación: Nos permite calcular cuántas vidas humanas se pierden por año en cada territorio y poder establecer una comparación en el impacto de pérdidas de vida como productoras de ingreso dentro de la economía de cada país.
 
-### Alexander Salazar (Data_limpia)
+### Alexander Salazar 
+
+(Data_limpia)
 
 1. Gasto público en educación, total (% del gasto del gobierno)
       - Base de datos: Banco Mundial (Education_expenditure)
