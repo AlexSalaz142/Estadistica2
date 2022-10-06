@@ -12,6 +12,7 @@ Integrantes:
 El tema a tratar es la desigualdad del ingreso de cada país. Nuestra variable dependiente es el coeficiente de GINI, el cual mide la desigualdad económica en la distribución del ingreso familiar.
 El coeficiente de Gini fue elegido debido a que permite conocer de qué manera se distribuyen los ingresos entre los habitantes de un país. Mientras más alto sea el
 coeficiente, mayor desigualdad se presentará.
+      Base de datos: CIA (Gini.coeff)
 
 
 ### Variables Independientes:
@@ -40,14 +41,14 @@ coeficiente, mayor desigualdad se presentará.
       - Base de datos: Banco Mundial (Mortality_rate)
       - Justificación: Nos permite calcular cuántas vidas humanas se pierden por año en cada territorio y poder establecer una comparación en el impacto de pérdidas de vida como productoras de ingreso dentro de la economía de cada país.
 
-### Alexander Salazar
+### Alexander Salazar (Data_limpia)
 
 1. Gasto público en educación, total (% del gasto del gobierno)
-      - Base de datos: Banco Mundial (data_alexander)
+      - Base de datos: Banco Mundial (Education_expenditure)
       - Justificación: Cada país invierte una cantidad de dinero para la educación, entonces, podríamos explicar si esto impacta en la percepción de ingresos de un Estado que invierte mayor cantidad de dinero en educación en comparación con otro Estado que invierte menos.
 2. Desempleo, total (% de la población activa total). 
-      - Base de datos: Banco Mundial (data_alexander)
+      - Base de datos: Banco Mundial (Unemployment_rate)
       - Justificación: Nos ayudará a responder si las tasas de desempleo alto impacta de manera negativa en el índice de ingresos de un país, o si las tasas de desempleo bajo impactan de manera positiva el índice de ingresos en un país.
-3. Esperanza de vida al nacer, total (años). 
-      - Base de datos: Banco Mundial (data_alexander)
-      - Justificación: Nos ayudará a determinar si la esperanza de vida al nacer, que representa un futuro capital humano, tiene un mayor o menor impacto en la cantidad de ingresos percibidos en un Estado en comparación a otro.
+3. Indice de democracia. 
+      - Base de datos: The Economist Intelligence Unit (Demo_index)
+      - Justificación: 
