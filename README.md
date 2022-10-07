@@ -31,16 +31,15 @@ Base de datos: CIA (Gini.coeff)
 
 ### Sebastian Calero
 
-1. Sueldo promedio por adulto
-      - Base de datos: World Inequality Database (Income_adult)
-      - Justificación: Nos ayuda a distinguir las diferencias entre la percepción de ingresos promedio de un adulto en un determinado país en comparación a la percepción de otro adulto ubicado en otro continente. De esa manera, establecer si los sueldos promedios impactan o no en la desigualdad de ingresos en cada país.
-2. Crecimiento poblacional
-      - Base de datos: CIA (Population_growth)
-      - Justificación: Nos permitirá saber si el índice de crecimiento poblacional, entendida como mayor población apta para trabajar, influye en mayor o menor medida en la desigualdad de ingresos en cada Estado. 
+1. Gasto en investigación y desarrollo
+      - Base de datos: Banco mundial (data)
+      - Justificación: Esta variable nos permite saber si la cantidad de dinero invertido en investigación y desarrollo inicide en la desigualdad de ingresos en un país con respecto a otro.
+2. Fuerza Laboral
+      - Base de datos: CIA (data2)
+      - Justificación: Cada estado presenta una cantidad de fuerza laboral medida en cantidad de personas que trabajan legalmente y pagan impuestos. A partir de ello, la cantidad de fuerza laboral de un país con respecto a otro nos lleva a una diferencia en la distribución de ingresos de cada país.
 3. Tasa de mortalidad en un año (por cada 1.000 personas)
-      - Base de datos: Banco Mundial (Mortality_rate)
-      - Justificación: Nos permite calcular cuántas vidas humanas se pierden por año en cada territorio y poder establecer una comparación en el impacto de pérdidas de vida como productoras de ingreso dentro de la economía de cada país.
-
+      - Base de datos: Banco Mundial (data3)
+      - Justificación: La tasa de mortalidad de un Estado con respecto a otro puede variar dependiendo de diversos factores (salud, calidad de vida, seguridad ciudadana, etc). Factor que afecta directamente la distribución de ingresos, ya que a una alta tasa de mortalidad significa que existe menos población capacitada para generar ingresos; por el contrario, si existe una menor tasa de mortalidad existirá mayor cantidad de gente que pueda generar más ingresos. 
 ### Alexander Salazar 
 
 (Data_conjunta_Alex)
