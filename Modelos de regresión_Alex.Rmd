@@ -1,0 +1,56 @@
+---
+title: "Entrega2_grupo2"
+output: html_document
+date: '2022-10-07'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(rio)
+DataA="https://github.com/AlexSalaz142/TrabajoE2/raw/main/Data_conjunta_Alex.csv"
+DataA1=import(DataA)
+```
+
+```{r}
+str(DataA1)
+sum(is.na(DataA1$GINIcoeff))
+sum(is.na(DataA1$EduExp))
+sum(is.na(DataA1$NoEmploy))
+sum(is.na(DataA1$DemoIndex))
+```
+
+```{r}
+Modelrl=lm(GINIcoeff~NoEmploy, DataA1)
+anova(Modelrl)
+summary(Modelrl)
+```
+
+```{r}
+Modelrl2=lm(GINIcoeff~NoEmploy+DemoIndex, DataA1)
+anova(Modelrl2)
+summary(Modelrl2)
+```
+
+```{r}
+Modelrl3=lm(GINIcoeff~NoEmploy+DemoIndex+EduExp, DataA1)
+anova(Modelrl3)
+summary(Modelrl3)
+```
+```{r}
+library(lm.beta)
+lm.beta(Modelrl3)
+```
+
+```{r}
+library(stargazer)
+library(jtools)
+stargazer(Modelrl,Modelrl2,Modelrl3, type ="text")
+plot_summs(Modelrl,Modelrl2,Modelrl3, scale = TRUE)
+```
+
+
+
+
