@@ -43,7 +43,7 @@ Base de datos: CIA (Gini.coeff)
 
 ### Alexander Salazar 
 
-(Data_limpia)
+(Data_conjunta_Alex)
 
 1. Gasto público en educación, total (% del gasto del gobierno)
       - Base de datos: Banco Mundial (Education_expenditure)
