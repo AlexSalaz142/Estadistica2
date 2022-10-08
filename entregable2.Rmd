@@ -1,0 +1,107 @@
+---
+title: "entregable2"
+author: "Alexander Salazar, Gianfranco Polar, Sebastián Calero"
+date: "2022-10-07"
+output: html_document
+---
+
+```{r}
+library(rio)
+DataA="https://github.com/AlexSalaz142/TrabajoE2/raw/main/Data_conjunta_Alex.csv"
+DataA1=import(DataA)
+```
+
+```{r}
+str(DataA1)
+sum(is.na(DataA1$GINIcoeff))
+sum(is.na(DataA1$EduExp))
+sum(is.na(DataA1$NoEmploy))
+sum(is.na(DataA1$DemoIndex))
+```
+
+```{r}
+Modelrl=lm(GINIcoeff~NoEmploy, DataA1)
+anova(Modelrl)
+summary(Modelrl)
+```
+
+```{r}
+Modelrl2=lm(GINIcoeff~NoEmploy+DemoIndex, DataA1)
+anova(Modelrl2)
+summary(Modelrl2)
+```
+
+```{r}
+Modelrl3=lm(GINIcoeff~NoEmploy+DemoIndex+EduExp, DataA1)
+anova(Modelrl3)
+summary(Modelrl3)
+```
+```{r}
+library(lm.beta)
+lm.beta(Modelrl3)
+```
+
+```{r}
+library(stargazer)
+library(jtools)
+stargazer(Modelrl,Modelrl2,Modelrl3, type ="text")
+plot_summs(Modelrl,Modelrl2,Modelrl3, scale = TRUE)
+```
+
+```{r}
+library(rio)
+library(dplyr)
+```
+
+
+```{r}
+data="https://github.com/AlexSalaz142/TrabajoE2/raw/main/data_gianfranco.csv"
+dataindep=import(data,sep=";")
+```
+```{r}
+datadep="https://github.com/AlexSalaz142/TrabajoE2/raw/main/Gini_coeff.csv"
+dataGini=import(datadep,sep=";")
+```
+
+```{r}
+dataGini=dataGini[-c(2, 4:7)]
+```
+
+```{r}
+colnames(dataGini)[1]="country"
+colnames(dataGini)[2]="gini"
+```
+
+```{r}
+dataGianfranco=merge(dataindep,dataGini,all=TRUE)
+```
+
+```{r}
+dataGianfranco$pop_urb=as.numeric(dataGianfranco$pop_urb)
+dataGianfranco$export=as.numeric(dataGianfranco$export)
+dataGianfranco$school_enr=as.numeric(dataGianfranco$school_enr)
+dataGianfranco$gini=as.numeric(dataGianfranco$gini)
+```
+
+```{r}
+modelG1=lm(gini~school_enr, dataGianfranco)
+anova(modelG1)
+summary(modelG1)
+```
+```{r}
+modelG2=lm(gini~pop_urb+school_enr, dataGianfranco)
+anova(modelG2)
+summary(modelG2)
+```
+```{r}
+modelG3=lm(gini~export+school_enr, dataGianfranco)
+anova(modelG3)
+summary(modelG3)
+```
+
+```{r}
+library(stargazer)
+library(jtools)
+stargazer(modelG1, modelG2, modelG3, type ="text")
+```
+
