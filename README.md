@@ -19,15 +19,15 @@ Base de datos: CIA (Gini.coeff)
 
 ### Gianfranco Polar
 
-1. Impuestos y otros ingresos
-      - Base de datos: The World Factbook CIA (data_gianfranco)
-      - Justificación: Nos ayudará a responder si los Estados, a través de su capacidad de recaudación, son capaces de utilizar los ingresos para redistribuir adecuadamente la riqueza entre sus habitantes.
-2. Exportaciones de metales y minerales
-      - Base de datos: Banco Mundial (data_gianfranco)
-      - Justificación: Esta variable permite conocer si se presenta mayor o menor desigualdad en países con economías basadas en la exportación de bienes y servicios, es decir, aquellas más modernizadas, en contraposición a las basadas en exportación de materias primas.
-3. Población urbana
+1. Población urbana
       - Base de datos: Banco Mundial (data_gianfranco)
       - Justificación: Permite conocer si el fenómeno de la desigualdad, que es más frecuente en las ciudades, se extrapola a nivel país, según la distribución urbana o rural de su población.
+2. Exportaciones de metales y minerales
+      - Base de datos: Banco Mundial (data_gianfranco)
+      - Justificación: Esta variable permite conocer si se presenta mayor o menor desigualdad en países con economías basadas en la exportación de bienes y servicios, es decir, aquellas más modernizadas, en contraposición a las basadas en exportación de materias primas. Según González Oquendo (2009), siguiendo la teoría de la maldición de los recursos, la dependencia económica en la exportación de un commodity deteriora la calidad de vida de la población "a través del deterioro de la capacidad de absorción de la fuerza de trabajo e incrementa la desigualdad en la distribución tanto de los ingresos como de los activos".
+3. Tasa de matrícula escolar
+      - Base de datos: Banco Mundial (data_gianfranco)
+      - Justificación: Permite conocer si hay una relación entre la tasa de matrícula escolar y los niveles de desigualdad en el ingreso. 
 
 ### Sebastian Calero
 
