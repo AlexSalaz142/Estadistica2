@@ -1,6 +1,6 @@
 ---
 title: "entregable2"
-author: "Alexander Salazar, Gianfranco Polar, Sebastián Calero"
+author: "Alexander Salazar, Gianfranco Polar, Sebastian Calero"
 date: "2022-10-07"
 output: html_document
 ---
@@ -105,3 +105,41 @@ library(jtools)
 stargazer(modelG1, modelG2, modelG3, type ="text")
 ```
 
+```{r}
+library(rio)
+DataA="https://github.com/AlexSalaz142/TrabajoE2/raw/main/DataConjunta%20-%20Hoja%201.csv"
+DataA1=import(DataA)
+```
+```{r}
+str(DataA1)
+sum(is.na(DataA1$Ginicoeff))
+sum(is.na(DataA1$gasto_investigacion))
+sum(is.na(DataA1$fuerza_laboral))
+sum(is.na(DataA1$tasa_mortalidad))
+```
+```{r}
+Modelrl=lm(Ginicoeff~fuerza_laboral, DataA1)
+anova(Modelrl)
+summary(Modelrl)
+```
+```{r}
+Modelrl2=lm(Ginicoeff~fuerza_laboral+tasa_mortalidad, DataA1)
+anova(Modelrl2)
+summary(Modelrl2)
+```
+```{r}
+Modelrl3=lm(Ginicoeff~fuerza_laboral+tasa_mortalidad+gasto_investigacion, DataA1)
+anova(Modelrl3)
+summary(Modelrl3)
+```
+```{r}
+library(lm.beta)
+lm.beta(Modelrl3)
+```
+
+```{r}
+library(stargazer)
+library(jtools)
+stargazer(Modelrl,Modelrl2,Modelrl3, type ="text")
+plot_summs(Modelrl,Modelrl2,Modelrl3, scale = TRUE)
+```
