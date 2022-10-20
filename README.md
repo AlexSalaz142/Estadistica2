@@ -46,7 +46,7 @@ Base de datos: CIA (Gini.coeff)
 
 1. Gasto público en educación, total (% del gasto del gobierno)
       - Base de datos: Banco Mundial (Education_expenditure)
-      - Justificación: Cada país invierte una cantidad de dinero para la educación, entonces, podríamos explicar si esto impacta en la percepción de ingresos de un Estado que invierte mayor cantidad de dinero en educación en comparación con otro Estado que invierte menos. Esperamos una relación lineal por la cual a mayor invertimiento en eduación de un país, menor desigualdad pues, de acuerdo con Daniele Checci (2001), mayores posibilidades de educarse para la población y una mayopr calidad de la misma implican mayores oportunidades laborales y, por tanto, una menor desigualdad en el ingreso.
+      - Justificación: Cada país invierte una cantidad de dinero para la educación, entonces, podríamos explicar si esto impacta en la percepción de ingresos de un Estado que invierte mayor cantidad de dinero en educación en comparación con otro Estado que invierte menos. Esperamos una relación lineal por la cual a mayor invertimiento en eduación de un país, menor desigualdad pues, de acuerdo con Daniele Checci (2001), mayores posibilidades de educarse para la población y una mayor calidad de la misma implican mayores oportunidades laborales y, por tanto, una menor desigualdad en el ingreso.
 2. Desempleo, total (% de la población activa total). 
       - Base de datos: Banco Mundial (Unemployment_rate)
       - Justificación: Nos ayudará a responder si las tasas de desempleo alto impacta de manera negativa en el índice de ingresos de un país, o si las tasas de desempleo bajo impactan de manera positiva el índice de ingresos en un país.
