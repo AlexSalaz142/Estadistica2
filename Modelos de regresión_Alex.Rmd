@@ -21,28 +21,44 @@ sum(is.na(DataA1$EduExp))
 sum(is.na(DataA1$NoEmploy))
 sum(is.na(DataA1$DemoIndex))
 ```
-
+Modelo 1:
 ```{r}
 Modelrl=lm(GINIcoeff~NoEmploy, DataA1)
 anova(Modelrl)
 summary(Modelrl)
 ```
 
+Modelo 2:
 ```{r}
 Modelrl2=lm(GINIcoeff~NoEmploy+DemoIndex, DataA1)
 anova(Modelrl2)
 summary(Modelrl2)
 ```
-
+Modelo 3: con las 3 variables independientes
 ```{r}
 Modelrl3=lm(GINIcoeff~NoEmploy+DemoIndex+EduExp, DataA1)
 anova(Modelrl3)
 summary(Modelrl3)
 ```
+Al tener un mayor R ajustado, el modelo 3 se impone como el modelo de regresión más adecuado pues explica el coeficiente de GINI (Y) en un 12% a partir de las variables independientes del porcentaje de desempleo (NoEmploy), el índice de la democracia (DemoIndex) y el porcentaje de gasto en educación (EduExp).
+
+A partir del tercer modelo (Modelrl3) podemos identificar que la única variable con efecto significativo es la de desempleo (NoEmploy), siendo este directo y con una magnitud de 0.3609. Esto indicaría que a mayor desempleo, mayor desigualdad económica; sin embargo, el efecto no aparentaría suficiente como para establecer una relación directa de causalidad.
+
+También podemos resaltar que la variable de índice de la democracia pasa de mostrar un efecto negativo en el modelo 2 (correlación inversa, por la cual se demostraría que un mayor índice de la democracía implicaría menor desigualdad económica) a uno positivo en el modelo 3, aunque no siendo este último significativo. 
+
+La Ecuación de predicción resultante es la siguiente:
+
+    GINI/Y= 30.5815 + 0.3609 * (NoEmploy) + 0.4517 * (DemoIndex) + 0.3261 * (EduExp)
+
+Aun con todo esto, si quisieramos identificar claramente que variable independiente es la de mayor efecto sobre la variable dependiente se utiliza el lm.beta para estandarizarlas, lo cual nos indicará cuantas desviaciones estándar varía el GINIcoeff cuando NoEmploy, DemoIndex y EduExp varían en 1 desviación estándar.
+
 ```{r}
 library(lm.beta)
 lm.beta(Modelrl3)
 ```
+Esto nos idica finalmente que la variable que tiene más efecto es, en definitiva, el desempleo (NoEmploy). Esto se refleja en que es la única variable que se mantiene significativa tras la adición de las otras variables, aun cuando la maginitud de la misma .
+
+Podemos igualmente comparar estos tres primeros modelos gráficamente, por lo cual vemos el haber incluido las variables DemoIndex y EduExp ha provocado que el intervalo de confianza de NoEmplo se ampliara, siendo menos exacto.
 
 ```{r}
 library(stargazer)
@@ -50,7 +66,6 @@ library(jtools)
 stargazer(Modelrl,Modelrl2,Modelrl3, type ="text")
 plot_summs(Modelrl,Modelrl2,Modelrl3, scale = TRUE)
 ```
-
 
 
 
