@@ -1,0 +1,209 @@
+---
+title: "cleandata"
+output: html_document
+date: '2022-10-30'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### 1. Apertura y limpieza de las bases de datos
+
+
+```{r}
+library(rio)
+library(htmltab)
+```
+
+**Variable dependiente**
+
+Índice de desigualdad económica (GINI)
+
+```{r}
+GINI=import("https://github.com/AlexSalaz142/TrabajoE2/raw/main/Gini_coeff.csv")
+```
+
+**Variables independientes**
+
+1. Porcentaje del gasto en educación 
+```{r}
+EduExp=import("https://github.com/AlexSalaz142/TrabajoE2/raw/main/Education_expenditure.csv")
+```
+
+2. Tasa de desempleo
+```{r}
+NoEmploy=import("https://github.com/AlexSalaz142/TrabajoE2/raw/main/Unemployment_rate.csv")
+```
+
+3. Índice de democracia
+```{r}
+link = "https://en.wikipedia.org/wiki/Democracy_Index"
+path = "/html/body/div[3]/div[3]/div[5]/div[1]/table[5]"
+DataWK = htmltab(link, path)
+```
+
+Guardamos esta variable para subirla al GitHub
+```{r}
+write.csv(DataWK,"C:\\Users\\Xande\\OneDrive\\Escritorio\\Estadística II\\Trabajo Practico\\Demo_index.csv", row.names = FALSE)
+```
+
+##### 1.2. Limpieza de la data
+
+```{r}
+library(dplyr)
+```
+
+**Variable dependiente**
+
+Primero debemos quedarnos solo con las columnas que nos serán utiles para el anális:
+```{r}
+GINI=select(GINI,name,value)
+```
+
+Renombramos las columnas; esto nos servirá para luego poder combinar las bases:
+```{r}
+colnames(GINI)[1]="Country"
+colnames(GINI)[2]="GINIcoeff"
+```
+
+Renombramos a Turquía para que el nombre sea el mismo en todas las bases:
+```{r}
+GINI$Country[48]="Turkey"
+```
+
+Ordenamos por orden alfabético:
+```{r}
+GINI=arrange(GINI,Country)
+```
+
+**Variables independientes**
+
+1.
+
+Seleccionamos las columnas de interés:
+```{r}
+EduExp=select(EduExp, 1,2,65)
+```
+
+Renombramos las columnas:
+```{r}
+colnames(EduExp)[1]="Country"
+colnames(EduExp)[2]="Code"
+colnames(EduExp)[3]="EducationExpenditure"
+```
+
+Nos deshacemos de la primera fila, pues el R no la reconocio como los títulos de las columnas:
+```{r}
+EduExp = filter(EduExp, Country!="Country Name")
+row.names(EduExp)= NULL
+```
+
+2.
+
+Repetimos el proceso esta vez con la segunda variable, ya que provienen de la misma fuente de datos:
+```{r}
+NoEmploy=select(NoEmploy, 1,2,65)
+```
+
+```{r}
+colnames(NoEmploy)[1]="Country"
+colnames(NoEmploy)[2]="Code"
+colnames(NoEmploy)[3]="Unemployment"
+```
+
+```{r}
+NoEmploy = filter(NoEmploy, Country!="Country Name")
+row.names(NoEmploy)= NULL
+```
+
+Dado que las variables 1 y 2 se consiguieron de la misma fuente (World Bank), es posible juntar ambas bases con facilidad:
+```{r}
+DataF=merge(EduExp,NoEmploy, by=c("Code","Country"))
+str(DataF)
+```
+Eliminamos la columna de los códigos de los países:
+```{r}
+DataF=select(DataF,2,3,4)
+```
+
+Ahora, podemos cambiar en conjunto los nombres de los países con tal de que coincidan con los de las demás variables:
+```{r}
+DataF$Country[44]="Democratic Republic of the Congo"
+DataF$Country[45]="Republic of the Congo"
+DataF$Country[68]="Egypt"
+DataF$Country[97]="Hong Kong"
+DataF$Country[113]="Iran"
+DataF$Country[194]="North Korea"
+DataF$Country[127]="South Korea"
+DataF$Country[130]="Laos"
+DataF$Country[222]="Slovakia"
+DataF$Country[228]="Syria"
+DataF$Country[228]="Turkey"
+DataF$Country[255]="Venezuela"
+DataF$Country[263]="Yemen"
+```
+
+Nuevamente, ordenamos por orden alfabético:
+```{r}
+DataF=arrange(DataF, Country)
+```
+
+3.
+
+Solo nos interesa el nombre de los países y el índice del año 2020, por lo que descartamos las demás columnas:
+```{r}
+DemoIndex=select(DataWK,Country,"2020")
+colnames(DemoIndex)[2]="DemoIndex"
+```
+
+Debido a que el R no reconoce el valor como una variable numérica, debemos reconfigurarla:
+```{r}
+DemoIndex$DemoIndex= as.numeric(DemoIndex$DemoIndex)
+```
+
+Vemos como se ha desarreglado la base y, por tanto, en los nombres se aprecian unas Â. Debemos eliminarlas:
+```{r}
+DemoIndex$Country= substr(DemoIndex$Country,start = 3, stop = 50)
+```
+
+```{r}
+DemoIndex$Country[91]= substr("Â Â Nepal",start = 5,stop = 9)
+
+DemoIndex$Country[21]= substr("Â Switzerland",start = 3,stop = 13)
+
+DemoIndex$Country[143]="The Gambia"
+```
+
+Como siempre, ordenamos alfabéticamente:
+```{r}
+DemoIndex=arrange(DemoIndex, Country)
+```
+
+##### 2. MERGE- integración de las 10 variables. Mínimo 100 casos completos
+
+Primero combinamos la base de Gini (v.d) con la de gasto en educación y desempleo y verificamos la estructura:
+```{r}
+DataF1=merge(GINI,DataF,all=TRUE)
+str(DataF1)
+```
+
+Después, combinamos la base creada con la de democracia:
+```{r}
+datafinal=merge(DataF1, DemoIndex,all = TRUE)
+str(datafinal)
+```
+Vemos que no hay ningun tipo de problema con los tipo de variables (todas son numéricas a excepción del nombre). Sin embargo, aun se presentan muchos casos perdidos, por lo que es preciso eliminarlos:
+```{r}
+datafinal=datafinal[complete.cases(datafinal),]
+sum(is.na(datafinal))
+str(datafinal)
+```
+
+##### 3. exportar en csv -> datafinal.xlsx
+
+Ya lista la data, podemos exportarla a un archivo local para posteriormente subirla a GitHub:
+```{r}
+write.csv(datafinal,"C:\\Users\\Xande\\OneDrive\\Escritorio\\Estadística II\\Trabajo Practico\\datafinal.csv", row.names = FALSE)
+```
+
