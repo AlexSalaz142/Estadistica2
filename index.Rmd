@@ -1,0 +1,202 @@
+---
+title: "index"
+output: html_document
+date: '2022-10-30'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introducción
+
+La siguiente investigación analiza los factores que pueden profundizar la desigualdad de ingreso en la sociedad. Aquí se analizaán tres posibles factores; políticos, económicos y sociales.  El factor político será medido a través del nivel de democratización, el económico por el nivel de desempleo y el social por el gasto en educación. 
+
+```{r}
+library(rio)
+datafinal=import("https://github.com/AlexSalaz142/TrabajoE2/raw/main/datafinal.csv")
+```
+## 1. Análisis rápido de la data
+
+A primera vista, se puede ver como países con un nivel de desempleo medianamente alto también presentan un nivel medinamente alto de desigualdad económica, como es el caso de Eswatini, Botswana o Lesotho. Por otra parte, países con un alto índice de la democracia como Noruega, Islanda, Suiza o Finlandia presentan niveles de desigualdad reducidas. Finalmente, parecería no haber relación entre la desigualdad y el gasto en educación ya que países con una inversión menor como Angola o Papua Nueva Guinea muestran una desigualdad de ingreso similar a paises con gastos mayores como Costa Rica o Hong Kong. No obstante, estas son primeras impresiones que resultan poco confiables en tanto seleccionamos casos que respaldan nuestras hipótesis y por lo tanto deben ser confirmadas por un análisis de correlaciones. 
+
+## 2. Modelación
+En este caso, se realizará una regresión lineal múltiple.
+
+Modelo 1: 
+Índice de desigualdad del ingreso = b0 + b1*Tasa de desempleo
+
+```{r}
+Modelrl=lm(GINIcoeff~Unemployment, datafinal)
+anova(Modelrl)
+summary(Modelrl)
+```
+    
+    GINIcoeff = 36.0418 + 0.2803 * (Unemployment)
+
+Podemos evidenciar que, en principio, se evidencia una relación estadísticamente significativa, por lo cual la variable de desempleo presentaría una correlación directa con la variable de desigualdad del ingreso. Esto báscicamente indicaría que un país con mayor tasa de desemplo tiene mayor probabilidad de presentar una desigualdad económica más profunda; sin embargo, no se logra visualizar una clara determinación del ingreso en base a la distinción de los países según su nivel de desarrollo o sobre qué se basa sus economías, lo que implica limitaciones que deben solbentarse al añadir más variables al modelo.   
+
+Modelo 2: 
+Índice de desigualdad del ingreso = b0 + b1 * Tasa de desempleo + b2 * Índice de democracia
+
+```{r}
+Modelrl2=lm(GINIcoeff~Unemployment+DemoIndex, datafinal)
+anova(Modelrl2)
+summary(Modelrl2)
+```
+
+    GINIcoeff= 40.0273 + 0.2667 * (Unemployment) + -0.7027 * (DemoIndex)
+
+Haber añadido el índice de democracia no ha alterado la significancia de la tasa de desempleo para el modelo. Por otro lado, el R Ajustado ha aumentado en un 0.03791, lo cual no es realmente mucho, mas indicaría que vamos por un buen camino. Además, a diferencia de la caso anterior, en este caso se expresaría una relación inversamente proporcional entre la desigualdad y la democracia, el problema es que la democracia no resulta estadísticamente significativa. Esto apoyaría la tesis de que un país democrático no necesariamente refleja una desigualdad económica menos penetrante que un país bajo un régimen democrático.
+
+Modelo 3: 
+Índice de desigualdad del ingreso = b0 + b1 * Tasa de desempleo + b2 * Índice de democracia + b3 * Porcentaje de gasto público en educación
+
+```{r}
+Modelrl3=lm(GINIcoeff~Unemployment+DemoIndex+EducationExpenditure, datafinal)
+anova(Modelrl3)
+summary(Modelrl3)
+```
+    
+    GINIcoeff= 34.59382 + 0.26839 * (Unemployment) + -0.63361 * (DemoIndex) + 0.34838 * (Education expenditure)
+
+Al tener un mayor R ajustado, el modelo 3 se impone como el modelo de regresión más adecuado pues explica el coeficiente de GINI (Y) en un 12% a partir de las variables independientes del porcentaje de desempleo (Unemployment), el índice de la democracia (DemoIndex) y el porcentaje de gasto en educación (Education expenditure). Sin embargo, resulta imperante la inclusión de las demás variables consideradas para este trabajo, puesto que un 12% de variación no es especialmente útil para la extrapolación final de los resultados a la realidad.
+
+A pesar de esto, igualmente el modelo 3 es superior a los anteriores 2. Podemos notar como 2 de las 3 variables independientes resultan significativas. A pesar de que tanto desemplo como democracia han reducido su afectación a la variable dependiente ligeramente, la inclusión de la variable de gasto en educación justifica dicha pérdida en base su propia significancia para el modelo. Ahora, para evidenciar clararamente cuál es la variable de mayor efecto sobre la variable dependiente, podemos estandarizarlas.
+
+```{r}
+library(lm.beta)
+lm.beta(Modelrl3)
+```
+Esto nos muestra que definitivamente la variable de desempleo es la variable con mayor peso para el modelo. Podemos en cualquier caso identificar dos correlaciones más evidentes, una entre la desigualdad de ingreso percibida por los ciudadanos y el porcentaje de personas desempleadas, y otra entre el gasto en educación y el porcentaje de desempleados. 
+
+Podemos igualmente comparar estos tres primeros modelos gráficamente:
+```{r}
+library(stargazer)
+library(jtools)
+stargazer(Modelrl,Modelrl2,Modelrl3, type ="text")
+plot_summs(Modelrl,Modelrl2,Modelrl3, scale = TRUE)
+```
+
+## 3. Análisis factorial
+
+3.1. Anális factorial exploratorio:
+
+Primero substeamos la data para quedarnos con las variables de interés:
+```{r}
+dontselect=c("Country","GINIcoeff")
+select=setdiff(names(datafinal),dontselect) 
+theData=datafinal[,select]
+```
+
+Calculamos la matriz de correlación 
+```{r}
+library(polycor)
+corMatrix=polycor::hetcor(theData)$correlations
+```
+
+Visibilizamos el nivel de correlación:
+```{r}
+library(ggcorrplot)
+ggcorrplot(corMatrix)
+```
+Con este gráfico se prevee que la formación de factores no es adecuada, en tanto la correlación entre las variables idependientes es realmente baja.
+
+Igualmente es imprescindible verificar si las datos permiten la factorización:
+```{r}
+library(psych)
+psych::KMO(corMatrix) 
+```
+El MSA general (>=50) resulta despreciable, por lo cual no llega a ser conveniente el análisis factorial.
+De todas formas seguiremos el procedimiento, para observar el resultado final.
+
+Se verifica si la matriz de correlación es adecuada, rechazando nuestras 2 hipótesis nulas:
+
+H1: Se trata de una matriz de identidad (Esfericidad de Bartlett):
+```{r}
+cortest.bartlett(corMatrix,n=nrow(theData))$p.value>0.05
+```
+H2: Se trata de una matriz singular: 
+```{r}
+library(matrixcalc)
+is.singular.matrix(corMatrix)
+```
+Confirmamos que nos encontramos ante una matriz de identidad, por lo que el análisis factorial no soltará reusltados interesantes. 
+
+Entonces si buscamos que R nos sugiera en cuántos factores se puede redimensionar la data...
+```{r}
+fa.parallel(theData, fa = 'fa',correct = T,plot = F)
+```
+...obtendremos que la división de factores no es recomendable.
+
+De esta forma, si aún así se desea redimensionar la data, considerando los límites del análisis...
+```{r}
+library(GPArotation)
+resfa <- fa(theData,
+            nfactors = 1,
+            cor = 'mixed',
+            rotate = "varimax",
+            fm="minres")
+print(resfa$loadings)
+```
+...,obtendremos que podemos forzosamente enviar al índice de democracia a formarse como 1 factor, mientras que las otras variables no llegarían a agruparse en tanto exploran dimensiones distintas.
+
+Ello se visibiliza con mayor claridad en el siguiente gráfico:
+```{r}
+fa.diagram(resfa,main = "Resultados del EFA")
+```
+Evaluamos el aporte de las variables al único factor:
+```{r}
+sort(resfa$communality)
+```
+Valga la redudancia, el índice de la democracia es el que contribuye más a la formación de un factor.
+
+
+3.2. Análisis factorial confirmatorio:
+
+A pesar de no poder establecer una teoría válida (más allá con que la democracia forma parte de los factores de tipo político), continuamos con la confirmación de la data:
+
+```{r}
+modelCFA <- ' Sistema político  =~ DemoIndex'
+```
+
+Se normaliza la data
+```{r}
+theDataNorm=scale(theData)
+library(lavaan)
+```
+Luego se aprecia qué tanto el modelo se ajusta a los datos:
+```{r}
+cfa_fit <- cfa(modelCFA, data=theDataNorm, 
+           std.lv=TRUE,  
+           missing="fiml")
+summary(cfa_fit)
+```
+Podemos a partir de esto decir que sí es el caso.
+
+Finalmente evaluamos qué tan bien salió el modelos:
+
+```{r}
+allParamCFA=parameterEstimates(cfa_fit,standardized = T)
+allFitCFA=as.list(fitMeasures(cfa_fit))
+```
+
+a. Prueba ChiSquare:
+```{r}
+allFitCFA[c("chisq", "df", "pvalue")]
+```
+--> p_value inexistente
+
+b. Índice de Tucker Lewis:
+```{r}
+allFitCFA$tli 
+```
+--> Sí es mayor a 0.9
+
+c. Raíz del error cuadrático:
+```{r}
+allFitCFA[c('rmsea.ci.lower','rmsea' ,'rmsea.ci.upper')] 
+```
+--> Rmsea "técnicamente" menor, pero al fin y al cabo inexistente.
+
+En conclusión, la latente no cumple con los requisitos de su utilización. 
