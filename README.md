@@ -31,14 +31,14 @@ Base de datos: CIA (Gini.coeff)
 
 ### Sebastian Calero
 
-1. Gasto en investigación y desarrollo
-      - Base de datos: Banco mundial (gasto_investigacion)
-      - Justificación: Esta variable nos permite saber si la cantidad de dinero invertido en investigación y desarrollo inicide en la desigualdad de ingresos en un país con respecto a otro. 
-2. Fuerza Laboral
-      - Base de datos: CIA (fuerza_laboral)
+1. Tasa de embarazo adolescente
+      - Base de datos: Banco mundial (embarazo)
+      - Justificación: Esta variable nos permite saber cómo la alta tasa de embarazo adolescente impacta de manera negativa a la distribución de ingresos en un país debido a que muchas mujeres no culminan sus estudios técnicos y/o universitarios en consecuencia de una maternidad prematura.
+2. Fuerza Laboral participativa por país
+      - Base de datos: CIA (fuerzalab)
       - Justificación: Cada estado presenta una cantidad de fuerza laboral medida en cantidad de personas que trabajan legalmente y pagan impuestos. A partir de ello, la cantidad de fuerza laboral de un país con respecto a otro nos lleva a una diferencia en la distribución de ingresos de cada país.
 3. Tasa de mortalidad en un año (por cada 1.000 personas)
-      - Base de datos: Banco Mundial (tasa_mortalidad)
+      - Base de datos: Banco Mundial (mortalidad)
       - Justificación: La tasa de mortalidad de un Estado con respecto a otro puede variar dependiendo de diversos factores (salud, calidad de vida, seguridad ciudadana, etc). Factor que afecta directamente la distribución de ingresos, ya que a una alta tasa de mortalidad significa que existe menos población capacitada para generar ingresos; por el contrario, si existe una menor tasa de mortalidad existirá mayor cantidad de gente que pueda generar más ingresos. 
 ### Alexander Salazar 
 
