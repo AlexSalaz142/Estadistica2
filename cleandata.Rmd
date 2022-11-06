@@ -253,13 +253,13 @@ colnames(data_alexander)[1]="country"
 ```{r}
 dataN=merge(data_gini,data_gianfranco, by.x="country", by.y="country", all.x=T)
 dataM=merge(data_alexander,data_sebastian, by.x="country", by.y="country", all.x=T)
-datafinal=merge(dataN,dataM, by.x="country", by.y="country", all.x=T)
+data_final=merge(dataN,dataM, by.x="country", by.y="country", all.x=T)
 ```
 Descartar NAs
 ```{r}
-datafinal=na.omit(datafinal)
+data_final=na.omit(data_final)
 ```
 
 ```{r}
-write.csv(datafinal,"C:\\Users\\Gianfranco\\Documents\\GitHub\\TrabajoE2\\datafinal.csv", row.names = FALSE)
+write.csv(data_final,"C:\\Users\\Gianfranco\\Documents\\GitHub\\TrabajoE2\\datafinal.csv", row.names = FALSE)
 ```
