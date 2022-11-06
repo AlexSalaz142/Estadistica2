@@ -35,7 +35,7 @@ anova(Modelrl)
 summary(Modelrl)
 ```
     
-    gini = 34.3195 + 0.4862 * (Unemployment)
+    gini = 34.1893 + 0.4932 * (Unemployment)
 
 Podemos evidenciar que, en principio, se evidencia una relación estadísticamente significativa, por lo cual la variable de desempleo presentaría una correlación directa con la variable de desigualdad del ingreso. Esto básicamente indicaría que un país con mayor tasa de desemplo tiene mayor probabilidad de presentar una desigualdad económica más profunda.
 
@@ -48,9 +48,9 @@ anova(Modelrl2)
 summary(Modelrl2)
 ```
 
-    gini = 39.9099 + 0.5469 * (Unemployment) + -1.0117 * (DemoIndex)
+    gini = 39.8203 + 0.5517 * (Unemployment) + -1.0117 * (DemoIndex)
 
-Haber añadido el índice de democracia no ha alterado la significancia de la tasa de desempleo para el modelo. Por otro lado, el R Ajustado ha aumentado en un 0.0672, lo cual no es realmente mucho, mas indicaría que vamos por un buen camino. Además, a diferencia de la caso anterior, en este caso se expresaría una relación inversamente proporcional entre la desigualdad de ingreso y el índice de democracia. Esto implicaría que mientras un país se considere más democrático tiene más probabilidades de presentar menor desigualdad.
+Haber añadido el índice de democracia no ha alterado la significancia de la tasa de desempleo para el modelo. Por otro lado, el R Ajustado ha aumentado en un 0.0683, lo cual no es realmente mucho, mas indicaría que vamos por un buen camino. Además, a diferencia de la caso anterior, en este caso se expresaría una relación inversamente proporcional entre la desigualdad de ingreso y el índice de democracia. Esto implicaría que mientras un país se considere más democrático tiene más probabilidades de presentar menor desigualdad.
 
 Modelo 3: 
 Índice de desigualdad del ingreso = b0 + b1 * Tasa de desempleo + b2 * Índice de democracia + b3 * Porcentaje de gasto público en educación
@@ -61,11 +61,11 @@ anova(Modelrl3)
 summary(Modelrl3)
 ```
     
-    gini = 34.5966 + 0.5545 * (Unemployment) + -0.9296 * (DemoIndex) + 0.3269 * (Education expenditure)
+    gini = 34.4955 + 0.5596 * (Unemployment) + -0.9334 * (DemoIndex) + 0.3292 * (Education expenditure)
 
 El modelo 3 explica el coeficiente de GINI (Y) en un 21% a partir de las variables independientes del porcentaje de desempleo (Unemployment), el índice de la democracia (DemoIndex) y el porcentaje de gasto en educación (Education expenditure). Sin embargo, un 21% de variación no es especialmente útil para la extrapolación final de los resultados a la realidad, cosa que se arreglaría con la inclusión de las demás variables.
 
-Podemos notar como 2 de las 3 variables independientes resultan significativas (el porcentaje de gasto en educación no resulta significante). Entonces, a pesar de que el modelo en general sea más exacto que los anteriores 2, la inclusión de esta tercera variable ha reducido la afectación de las demás.
+Podemos notar como 2 de las 3 variables independientes resultan bastante relevantes. El porcentaje de gasto en educación resulta estadísticamente significativo, pero se acerca mucho al 0.05. Se puede preveer a partir de lo último que perdería su significancia al incluirse más variables al modelo.
 
 Ahora, para evidenciar clararamente cuál es la variable de mayor efecto sobre la variable dependiente, podemos estandarizarlas:
 
@@ -91,9 +91,9 @@ Modelrl4=lm(gini~urb_pop+exports+school_enr, datafinal)
 anova(Modelrl4)
 summary(Modelrl4)
 ```
-El modelo explica la desigualdad en la distribución de los ingresos (coeficiente de Gini) con un R2 Ajustado de 0.1013, lo cual podría explicar la variable dependiente pero no resulta lo suficientemente significativo como para concluir que es de gran relevancia.
+El modelo explica la desigualdad en la distribución de los ingresos (coeficiente de Gini) con un R2 Ajustado de 0.08251, lo cual podría explicar la variable dependiente pero no resulta lo suficientemente significativo como para concluir que es de gran relevancia.
 
-La variable tasa de matricula escolar (school_enr), es la que más influye en el modelo, pues tiene un valor de 0.01046 y presenta un asterisco. Por otro lado, las variables porcentaje de población urbana (urb_pop) y porcentaje de exportación de metales y minerales (exports) son las que menos aportan al modelo al tener mayor valor y no estar determinadas por un asterisco.
+La variable tasa de matricula escolar (school_enr), es la que más influye en el modelo, pues tiene un valor de 0.0279 y presenta un asterisco. Por otro lado, las variables porcentaje de población urbana (urb_pop) y porcentaje de exportación de metales y minerales (exports) son las que menos aportan al modelo al tener mayor valor y no estar determinadas por un asterisco.
 
 Modelo 5:
 ```{r}
@@ -101,8 +101,8 @@ Modelrl5=lm(gini~teen_preg+death_rate+labor_force, datafinal)
 anova(Modelrl5)
 summary(Modelrl5)
 ```
-El modelo explica la desigualdad en la distribución de los ingresos (coeficiente de Gini) con un R2 Ajustado de 0.3638, lo cual parece tener una cierta relevancia.
-La variable fertilidad adolescente (teen_preg), es la que más influye en el modelo, pues tiene un valor de 3.952e-10 y presenta tres asteriscos, por lo cual está bien relacionada a la variable dependiente. La variable mortalidad (death_rate) presenta también cierta significancia pues está acompañada de un asterisco y un  valor de 0.02966. Por último, la variable fuerza laboral es la que menos aporta al modelo.
+El modelo explica la desigualdad en la distribución de los ingresos (coeficiente de Gini) con un R2 Ajustado de 0.3387, lo cual parece tener una cierta relevancia.
+La variable fertilidad adolescente (teen_preg), es la que más influye en el modelo, pues tiene un valor de 4.26e-09 y presenta tres asteriscos, por lo cual está bien relacionada a la variable dependiente. La variable mortalidad (death_rate) presenta también cierta significancia pues está acompañada de un asterisco y un valor de 0.0346. Por último, la variable fuerza laboral es la que menos aporta al modelo.
 
 Regresión final - Modelo 6:
 ```{r}
@@ -114,11 +114,11 @@ summary(Modelrl6)
     gini = 13.395737 + 0.571798 * (Unemployment) -0.020243 * (DemoIndex) + 0.055099 * (Education expenditure) + 0.028412 * (urb_pop) -0.004342 * (exports) + 0.101183 * (school_enr) + 0.108677 * (teen_preg) -0.541102 * (death_rate) + 0.095891 * (labor_force)
 
 El modelo 6 reune todas las variables contempladas para la predicción de la desigualdad del ingreso. 
-Se presenta un R ajustado de un 0.5192, superior al de todos los anteriores modelos, por lo que ya debería considerarse a priori como el modelo más adecuado. No obstante, hay que tener en cuenta algunas aristas.
+Se presenta un R ajustado de un 0.5063, superior al de todos los anteriores modelos, por lo que ya debería considerarse a priori como el modelo más adecuado. No obstante, hay que tener en cuenta algunas aristas.
 
-En primer lugar, solo 3 de las 9 variables se identificarían como estadísticamente significantes. Estas son el desempleo, el embarazo adolescente y la mortalidad. Además, se ha perdido el aporte de la variable de desemplo, que en el tercer modelo era significante. A pesar de las aparentes inconveniencias, hay que reconocer que las otras 5 variables no mencionadas desde un principio no presentan un aporte significativo para la explicación de la desigualdad económica. 
+En primer lugar, solo 3 de las 9 variables se identificarían como estadísticamente significantes. Estas son el desempleo, el embarazo adolescente y la mortalidad. A pesar de las aparentes inconveniencias, hay que reconocer que las variables no mencionadas desde un principio no presentaban un aporte relevante para la explicación de la desigualdad económica. 
 
-Vamos a estandarizar las variables para revisar la afectación:
+Vamos a estandarizarlas para revisar la afectación:
 ```{r}
 lm.beta(Modelrl6)
 ```
@@ -136,11 +136,11 @@ plot_summs(Modelrl3, Modelrl4, Modelrl5, Modelrl6, scale = TRUE)
 
 Vemos como los intervalos de mortalidad, embarazo adolescente y desemplo son las únicos que no cruzan por el 0, lo que explica la significancia.
 
-A partir de todo esto, concluimos que la tesis de que una alta tasa de mortalidad implica ingresos menos desiguales debe ser rechazada. Es cierto que si existe una menor tasa de mortalidad existirá mayor cantidad de gente que pueda generar más ingresos, pero habría que identificar en qué grupos de edad se focaliza la mortilidad, puesto que, dependiendo de la edad, una persona percibe más o menos ingresos o no los recibe en absoluto. En ese sentido, por muy cínico que suene, habría que el fallecimiento de unas personas afecta en mayor medida al ingreso familiar que el de otras. Un objetivo posterior consistiría por tanto en descubrir que características de la persona determinan esta afectación.
+A partir de todo esto, concluimos que la tesis de que una alta tasa de mortalidad implica ingresos más desiguales debe ser rechazada. Es cierto que si existe una menor tasa de mortalidad existirá mayor cantidad de gente que pueda generar más ingresos, pero habría que identificar en qué grupos etarios se focaliza esta mortilidad, puesto que, dependiendo de la edad, una persona percibe más o menos ingresos o no los recibe en absoluto. En ese sentido, por muy cínico que suene, habría que evaluar en que mayor medida el fallecimiento de unas personas por sobre el de otras afecta al ingreso familiar. Un objetivo posterior consistiría por tanto en descubrir que características de la persona determinan el nivel de afectación.
 
 Por su parte, la hipótesis de que el embarazo adolescente implica mayor desigualdad puede considerarse como correcta. El caso es que, las adolescentes que quedan embarazadas encuentran complicaciones con el seguimiento de estudios, lo que a su vez implica una limitación a la empleabilidad. Además, en tanto un hij@ acarrea consigo un aumento a los gastos familiares, por lo que el ingreso neto percibido será menor. 
 
-Por último, el argumento de que la afectación del desempleo en la desigualdad del ingreso debería considerarse de manera sistemática debe no ser rechazado, pero si cuestionarse. Si por el contrario el modelo hubiese arrojado que no existía una correlación entre estas variables, ello podría interpretarse como que el nivel de desarrollo entendido en términos de estabilidad laboral o no se relaciona con la desigualdad económica, o no se evidencia en la realidad. Dado que ese no es el caso, es más fácil suponer que los países con menores tasas de desempleo (que en su mayoría se tratan de países desarrollados) son menos desiguales. Pero, consideramos que no hay que caer en el error de imponerla como una variable causal, pues el análisis de correlación no toma en cuenta  la relación con las otras variables como la democratización, lo cual se intentará resolver adelante con el análisi facotiral.
+Por último, el argumento de que la afectación del desempleo en la desigualdad del ingreso debería considerarse de manera sistemática debe no ser rechazado, pero si cuestionarse. Si, por el contrario, el modelo hubiese arrojado que no existía una correlación entre estas variables, ello podría interpretarse como que el nivel de desarrollo entendido en términos de estabilidad laboral o no se relaciona con la desigualdad económica, o no se evidencia en la realidad. Dado que ese no es el caso, es más fácil suponer que los países con menores tasas de desempleo (que en su mayoría se tratarían de países desarrollados) son menos desiguales. Pero, consideramos que no hay que caer en el error de imponerla como una variable causal, pues el análisis de correlación no toma en cuenta la relación con las otras variables como la democratización, lo cual se intentará resolver adelante con el análisis factorial.
 
 
 ## 3. Análisis factorial
