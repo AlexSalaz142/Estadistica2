@@ -27,7 +27,7 @@ Modelo 1:
 Índice de desigualdad del ingreso = b0 + b1*Tasa de desempleo
 
 ```{r}
-Modelrl=lm(GINIcoeff~Unemployment, datafinal)
+Modelrl=lm(gini~Unemployment, datafinal)
 anova(Modelrl)
 summary(Modelrl)
 ```
@@ -40,7 +40,7 @@ Modelo 2:
 Índice de desigualdad del ingreso = b0 + b1 * Tasa de desempleo + b2 * Índice de democracia
 
 ```{r}
-Modelrl2=lm(GINIcoeff~Unemployment+DemoIndex, datafinal)
+Modelrl2=lm(gini~Unemployment+DemoIndex, datafinal)
 anova(Modelrl2)
 summary(Modelrl2)
 ```
@@ -53,7 +53,7 @@ Modelo 3:
 Índice de desigualdad del ingreso = b0 + b1 * Tasa de desempleo + b2 * Índice de democracia + b3 * Porcentaje de gasto público en educación
 
 ```{r}
-Modelrl3=lm(GINIcoeff~Unemployment+DemoIndex+EducationExpenditure, datafinal)
+Modelrl3=lm(gini~Unemployment+DemoIndex+EducationExpenditure, datafinal)
 anova(Modelrl3)
 summary(Modelrl3)
 ```
@@ -76,6 +76,29 @@ library(stargazer)
 library(jtools)
 stargazer(Modelrl,Modelrl2,Modelrl3, type ="text")
 plot_summs(Modelrl,Modelrl2,Modelrl3, scale = TRUE)
+```
+
+Realizar otra regresión con las otras variables independientes
+```{r}
+Modelrl4=lm(gini~urb_pop+exports+school_enr, datafinal)
+anova(Modelrl4)
+summary(Modelrl4)
+```
+El modelo explica la desigualdad en la distribución de los ingresos (coeficiente de Gini) con un R2 Ajustado de 0.1013, lo cual podría explicar la variable dependiente pero no resulta lo suficientemente significativo como para concluir que es de gran relevancia.
+La variable tasa de matricula escolar (school_enr), es la que más influye en el modelo, pues tiene un valor de 0.01046 y presenta un asterisco. Por otro lado, las variables porcentaje de población urbana (urb_pop) y porcentaje de exportación de metales y minerales (exports) son las que menos aportan al modelo al tener mayor valor y no estar determinadas por un asterisco.
+
+```{r}
+Modelrl5=lm(gini~teen_preg+death_rate+labor_force, datafinal)
+anova(Modelrl5)
+summary(Modelrl5)
+```
+El modelo explica la desigualdad en la distribución de los ingresos (coeficiente de Gini) con un R2 Ajustado de 0.3638, lo cual parece tener una cierta relevancia.
+La variable fertilidad adolescente (teen_preg), es la que más influye en el modelo, pues tiene un valor de 3.952e-10 y presenta tres asteriscos, por lo cual está bien relacionada a la variable dependiente. La variable mortalidad (death_rate) presenta también cierta significancia pues está acompañada de un asterisco y un  valor de 0.02966. Por último, la variable fuerza laboral es la que menos aporta al modelo.
+
+```{r}
+Modelrl6=lm(gini~Unemployment+DemoIndex+EducationExpenditure+urb_pop+exports+school_enr+teen_preg+death_rate+labor_force, datafinal)
+anova(Modelrl6)
+summary(Modelrl6)
 ```
 
 ## 3. Análisis factorial
