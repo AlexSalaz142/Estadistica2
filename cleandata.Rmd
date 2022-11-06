@@ -6,6 +6,7 @@ output: html_document
 ---
 #Importando y limpiando la data de la variable independiente (Coeficiente de Gini)
 ```{r}
+library(rio)
 DataE="https://github.com/AlexSalaz142/TrabajoE2/raw/main/Gini_coeff.csv"
 data_gini=import(DataE)
 ```
@@ -224,6 +225,11 @@ Debido a que el R no reconoce el valor como una variable numérica, debemos reco
 DemoIndex$DemoIndex= as.numeric(DemoIndex$DemoIndex)
 ```
 
+Vemos como se ha desarreglado la base y, por tanto, en los nombres se aprecian unas Â. Debemos eliminarlas:
+```{r}
+DemoIndex$Country= substr(DemoIndex$Country,start = 3, stop = 50)
+```
+
 ```{r}
 DemoIndex$Country[91]= substr("Â Â Nepal",start = 5,stop = 9)
 
@@ -231,21 +237,28 @@ DemoIndex$Country[21]= substr("Â Switzerland",start = 3,stop = 13)
 
 DemoIndex$Country[143]="The Gambia"
 ```
-```{r}
-DemoIndex$Country= substr(DemoIndex$Country,start = 2, stop = 50)
-```
+
 Como siempre, ordenamos alfabéticamente:
 ```{r}
 DemoIndex=arrange(DemoIndex, Country)
 ```
+Reconfiguramos el nombre de las primeras columnas:
+```{r}
+colnames(DemoIndex)[1]="country"
+colnames(DataZ)[1]="country"
+```
 
 Por último, realizar un Merge:
 ```{r}
-data_alexander=merge(DemoIndex,DataZ, by.x="Country", by.y="Country", all.x=T)
+dataS=merge(data_gini,DataZ,all=TRUE)
+dataH=merge(dataS,DemoIndex,all = TRUE)
 ```
 
+Eliminamos casos perdidos:
 ```{r}
-colnames(data_alexander)[1]="country"
+data_alexander=dataH[complete.cases(dataH),]
+sum(is.na(data_alexander))
+str(data_alexander)
 ```
 
 ##MERGE DE LA DATA FINAL
@@ -253,7 +266,7 @@ colnames(data_alexander)[1]="country"
 ```{r}
 dataN=merge(data_gini,data_gianfranco, by.x="country", by.y="country", all.x=T)
 dataM=merge(data_alexander,data_sebastian, by.x="country", by.y="country", all.x=T)
-data_final=merge(dataN,dataM, by.x="country", by.y="country", all.x=T)
+data_final=merge(dataN,dataM, by=c("country","gini"), all.x=T)
 ```
 Descartar NAs
 ```{r}
