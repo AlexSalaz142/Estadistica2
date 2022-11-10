@@ -6,7 +6,6 @@ output: html_document
 ---
 #Importando y limpiando la data de la variable independiente (Coeficiente de Gini)
 ```{r}
-library(rio)
 DataE="https://github.com/AlexSalaz142/TrabajoE2/raw/main/Gini_coeff.csv"
 data_gini=import(DataE)
 ```
@@ -80,10 +79,8 @@ library(rio)
 ```{r}
 data1="https://github.com/AlexSalaz142/TrabajoE2/raw/main/embarazo.csv"
 embarazo=import(data1)
-
 data2="https://github.com/AlexSalaz142/TrabajoE2/raw/main/laborforce.csv"
 fuerzalab=import(data2)
-
 data3="https://github.com/AlexSalaz142/TrabajoE2/raw/main/death_rate.csv"
 mortalidad=import(data3)
 ```
@@ -225,40 +222,26 @@ Debido a que el R no reconoce el valor como una variable numérica, debemos reco
 DemoIndex$DemoIndex= as.numeric(DemoIndex$DemoIndex)
 ```
 
-Vemos como se ha desarreglado la base y, por tanto, en los nombres se aprecian unas Â. Debemos eliminarlas:
-```{r}
-DemoIndex$Country= substr(DemoIndex$Country,start = 3, stop = 50)
-```
-
 ```{r}
 DemoIndex$Country[91]= substr("Â Â Nepal",start = 5,stop = 9)
-
 DemoIndex$Country[21]= substr("Â Switzerland",start = 3,stop = 13)
-
 DemoIndex$Country[143]="The Gambia"
 ```
-
+```{r}
+DemoIndex$Country= substr(DemoIndex$Country,start = 2, stop = 50)
+```
 Como siempre, ordenamos alfabéticamente:
 ```{r}
 DemoIndex=arrange(DemoIndex, Country)
 ```
-Reconfiguramos el nombre de las primeras columnas:
-```{r}
-colnames(DemoIndex)[1]="country"
-colnames(DataZ)[1]="country"
-```
 
 Por último, realizar un Merge:
 ```{r}
-dataS=merge(data_gini,DataZ,all=TRUE)
-dataH=merge(dataS,DemoIndex,all = TRUE)
+data_alexander=merge(DemoIndex,DataZ, by.x="Country", by.y="Country", all.x=T)
 ```
 
-Eliminamos casos perdidos:
 ```{r}
-data_alexander=dataH[complete.cases(dataH),]
-sum(is.na(data_alexander))
-str(data_alexander)
+colnames(data_alexander)[1]="country"
 ```
 
 ##MERGE DE LA DATA FINAL
@@ -266,13 +249,13 @@ str(data_alexander)
 ```{r}
 dataN=merge(data_gini,data_gianfranco, by.x="country", by.y="country", all.x=T)
 dataM=merge(data_alexander,data_sebastian, by.x="country", by.y="country", all.x=T)
-datafinal=merge(dataN,dataM, by=c("country","gini"), all.x=T)
+data_final=merge(dataN,dataM, by.x="country", by.y="country", all.x=T)
 ```
 Descartar NAs
 ```{r}
-datafinal=na.omit(datafinal)
+data_final=na.omit(data_final)
 ```
 
 ```{r}
-write.csv(datafinal,"C:\\Users\\Xande\\OneDrive\\Escritorio\\Estadística II\\Trabajo Practico\\datafinal.csv", row.names = FALSE)
+write.csv(data_final,"C:\\Users\\Gianfranco\\Documents\\GitHub\\TrabajoE2\\datafinal.csv", row.names = FALSE)
 ```
