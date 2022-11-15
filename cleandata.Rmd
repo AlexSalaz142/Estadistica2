@@ -80,10 +80,8 @@ library(rio)
 ```{r}
 data1="https://github.com/AlexSalaz142/TrabajoE2/raw/main/embarazo.csv"
 embarazo=import(data1)
-
 data2="https://github.com/AlexSalaz142/TrabajoE2/raw/main/laborforce.csv"
 fuerzalab=import(data2)
-
 data3="https://github.com/AlexSalaz142/TrabajoE2/raw/main/death_rate.csv"
 mortalidad=import(data3)
 ```
@@ -135,14 +133,11 @@ NoEmploy=import("https://github.com/AlexSalaz142/TrabajoE2/raw/main/Unemployment
 
 3. Índice de democracia
 ```{r}
-link = "https://en.wikipedia.org/wiki/Democracy_Index"
-path = "/html/body/div[3]/div[3]/div[5]/div[1]/table[5]"
-DataWK = htmltab(link, path)
+DemoIndex=import("https://github.com/AlexSalaz142/TrabajoE2/raw/main/Demo_index.csv")
 ```
 
 Guardamos esta variable para subirla al GitHub
 ```{r}
-write.csv(DataWK,"C:\\Users\\Xande\\OneDrive\\Escritorio\\Estadística II\\Trabajo Practico\\Demo_index.csv", row.names = FALSE)
 ```
 
 ##### 1.2. Limpieza de la data
@@ -216,7 +211,7 @@ DataZ=arrange(DataZ, Country)
 
 Solo nos interesa el nombre de los países y el índice del año 2020, por lo que descartamos las demás columnas:
 ```{r}
-DemoIndex=select(DataWK,Country,"2020")
+DemoIndex=select(DemoIndex,Country,"2020")
 colnames(DemoIndex)[2]="DemoIndex"
 ```
 
@@ -232,7 +227,6 @@ DemoIndex$Country= substr(DemoIndex$Country,start = 2, stop = 50)
 
 ```{r}
 DemoIndex$Country[91]= substr("  Nepal",start = 3, stop = 8)
-
 DemoIndex[DemoIndex$Country=='Gambia','Country']='The Gambia'
 ```
 
