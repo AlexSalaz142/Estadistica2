@@ -6,6 +6,7 @@ output: html_document
 ---
 #Importando y limpiando la data de la variable independiente (Coeficiente de Gini)
 ```{r}
+rm(list = ls())
 library(rio)
 DataE="https://github.com/AlexSalaz142/TrabajoE2/raw/main/Gini_coeff.csv"
 data_gini=import(DataE)
