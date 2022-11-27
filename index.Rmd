@@ -19,6 +19,7 @@ La siguiente investigación analiza los factores que pueden profundizar la desig
 
 ```{r}
 rm(list = ls())
+library(kableExtra)
 library(rio)
 datafinal=import("https://github.com/AlexSalaz142/TrabajoE2/raw/main/datafinal.csv")
 ```
