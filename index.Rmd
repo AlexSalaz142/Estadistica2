@@ -151,6 +151,8 @@ Por último, el argumento de que la afectación del desempleo en la desigualdad 
 
 ## 3. Análisis factorial
 
+En esta sección deseamos evaluar si es posible reducir neustras variables a otras más simples. Como se mencionó al principio, consideramos que la desigualdad se explica por tres tipos de factores, por lo que aquí se mostrará si esta interpretación es correcta.
+
 3.1. Anális factorial exploratorio:
 
 Primero substeamos la data para quedarnos con las variables de interés:
@@ -215,8 +217,9 @@ La agrupación se visibiliza con mayor claridad en el siguiente gráfico:
 ```{r}
 fa.diagram(resfa,main = "Resultados del EFA")
 ```
-De ello se saca que el porcentaje de población urbana, de embarazo adolescente, de gasto en educación y la tasa de mortalidad se agrupan en un factor, el cual podríamos considerar como el factor social. Por el otro lado, el porcentaje de fuerza laboral y de desempleo se agrupan en un segundo factor, el cual habíamos previsto como el factor laboral. Por último, el porcentaje de exportación de metales y minerales y la tasa de matrícula escolar se quedan fuera de la agrupación, por lo que, teóricamente, podría descartarse del estudio. 
+De ello se resuelve que el porcentaje de población urbana y de embarazo adolescente se agrupan en un factor, el cual podríamos considerar como el factor social. Por el otro lado, el porcentaje de fuerza laboral y de desempleo se agrupan en un segundo factor, el cual habíamos previsto como el factor laboral. Por último, la tasa de mortalidad y el porcentaje de gasto en educación componen el tercer factor. No obstante, esto último nos resulta conflictivo en tanto el porcentaje de mortalidad presenta una correlación muy baja con el gasto en eduación según la matriz. Asimismo, las variables de tasa de matrícula escolar y el porcentaje de exportaciones de metales y minerales se estarían quedando fuera del estudio.
 
+Es por ello que hay que ser más específicos respecto a la afectación a las variables latentes.
 Evaluamos la contribución de las variables a la formación de factores:
 ```{r}
 sort(resfa$communality)
@@ -227,11 +230,15 @@ Evaluamos qué variables aportan a más de un factor:
 ```{r}
 sort(resfa$complexity)
 ```
-Resulta que la variable más compleja es la tasa de matrícula escolar, lo que implica que es la que más tiende a pertencer a ambos factores, pero en sí misma no pertenece claramente a ninguno. Por su parte, la variable con menor probabilidad de acercarse a más de un factor es el porcentaje de población urbana, la cual pertenecería de forma rígida al primer factor.
+Se concluye que la variable más compleja es la tasa de matrícula escolar, lo que implica que es la que más tiende a pertencer a ambos factores, pero en sí misma no pertenece claramente a ninguno. Por su parte, la variable con menor probabilidad de acercarse a más de un factor es el porcentaje de población urbana, la cual pertenecería de forma rígida al primer factor.
 
-## 4. Analisis Conglomerados
+# 4. Analisis Conglomerados
 
-Normalizamos la data:
+Con este análisis queremos si los países presentan similitudes de acuerdo a nuestras variables analizadas. El objetivo final es evidenciar qué tan bien se agrupan los casos.
+
+## Preparación de los datos para la clusterización
+
+Como primer paso, hay que normalizar la data:
 ```{r}
 library(BBmisc)
 datafinal[,c(2:11)]= normalize(datafinal[,c(2:11)],method='standardize')
@@ -241,7 +248,8 @@ Luego evidenciamos las correlaciones:
 ```{r}
 cor(datafinal[,c(2:11)]) 
 ```
-## Preparación de los datos para la clusterización
+
+Finalmente, se subseteará la data pertinente para la clusterización:
 ```{r}
 dataClus=datafinal[,c(3:11)]
 row.names(dataClus)=datafinal$country
@@ -250,19 +258,25 @@ row.names(dataClus)=datafinal$country
 library(cluster)
 g.dist = daisy(dataClus, metric="gower")
 ```
-# Proceso de clusterización
+## Proceso de clusterización
 
-## Para realizar el proceso de clusterización se hará uso de la Estrategia Jerárquica - divisiva
+Para realizar el proceso de clusterización se hará uso de la Estrategia Jerárquica - divisiva, mediante la cual todos los casos empezarán como un gran cluster y de ahí se dividirán en clusters más pequeños.
 
-Primero, se decidirá la cantidad de cluster a utilizar mediante una solicitud usando el estadístico 'gap'
+Primero usamos la función daisy para calcular la matriz de correlación:
+```{r}
+library(cluster)
+g.dist = daisy(dataClus, metric="gower") 
+```
 
+Ahora se decidirá la cantidad de cluster a utilizar mediante una solicitud usando el estadístico 'gap':
 ```{r, echo=FALSE}
 library(factoextra)
 fviz_nbclust(dataClus, hcut,diss=g.dist,method = "gap_stat",k.max = 10,verbose = F,hc_func = "diana")
 ```
 
-## Clusterizar vía DIANA
+### Clusterizar vía DIANA
 
+Se realiza la clusterización:
 ```{r, echo=FALSE}
 set.seed(123)
 res.diana <- hcut(g.dist, k = 4,hc_func='diana')
@@ -270,13 +284,15 @@ dataClus$diana=res.diana$cluster
 head(dataClus,15)
 ```
 
+Se evalúan las siluetas formadas:
 ```{r, echo=FALSE}
 fviz_silhouette(res.diana,print.summary = F)
-
 ```
-* Nótese que no se presentan valores mal clusterizados; por ende, no habrá necesidad de evaluar los resultados.
 
-## Verificando Etiqueta
+Con este gráfico podemos evidenciar barras que representan cada caso analizado, o sea los países. Mientras más baja la barra es menos probable que el país guarde similitudes con el resto de casos del subgrupo y los que se encuentran por debajo del 0 se tratan de países mal clusterizados, los cuales se tratan de los casos que, de acuerdo al análisis, no pertenecen a ningun grupo, pero son forzados por la prueba a serlo. 
+* Nótese que, afortunadamente, no se presentan valores mal clusterizados.
+
+### Verificando Etiqueta
 * A continuación, exploraremos el promedio de cada cluster.
 
 ```{r, echo=FALSE}
@@ -285,4 +301,4 @@ aggregate(.~ diana, data=dataClus,mean)
 
 
 
-## 5. Conclusiones
+# 5. Conclusiones
