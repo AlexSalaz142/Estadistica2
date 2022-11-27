@@ -141,7 +141,7 @@ stargazer(Modelrl3, Modelrl4, Modelrl5, Modelrl6, type ="text")
 plot_summs(Modelrl3, Modelrl4, Modelrl5, Modelrl6, scale = TRUE)
 ```
 
-Vemos como los intervalos de mortalidad, embarazo adolescente y desemplo son las únicos que no cruzan por el 0, lo que explica la significancia.
+Vemos como los intervalos de mortalidad, embarazo adolescente y desempleo son las únicos que no cruzan por el 0, lo que explica la significancia.
 
 A partir de todo esto, concluimos que la tesis de que una alta tasa de mortalidad implica ingresos más desiguales debe ser rechazada. Es cierto que si existe una menor tasa de mortalidad existirá mayor cantidad de gente que pueda generar más ingresos, pero habría que identificar en qué grupos etarios se focaliza esta mortilidad, puesto que, dependiendo de la edad, una persona percibe más o menos ingresos o no los recibe en absoluto. En ese sentido, por muy cínico que suene, habría que evaluar en que mayor medida el fallecimiento de unas personas por sobre el de otras afecta al ingreso familiar. Un objetivo posterior consistiría por tanto en descubrir que características de la persona determinan el nivel de afectación.
 
@@ -314,5 +314,10 @@ datafinal$dianaGINI=as.ordered(dataClus$diana)
 dataClus$diana=NULL
 ```
 
+
 # 5. Conclusiones
+En conclusión, las variables independientes escogidas para la investigación conforman un modelo de regresión lineal que explica la variable dependiente en un 55%. De estas variables, aquellas que resultan más estadísticamente significativas en el modelo propuesto son la tasa de mortalidad, la tasa de desempleo y la tasa de embarazo adolescente, en comparación con el resto de variables. El modelo mejora a medida que se añaden nuevas variables, aunque estas no logran ser lo suficientemente significativas para explicar la desigualdad en la distribución del ingreso. Es posible concluir, entonces, que la ocurrencia de embarazos adolescentes explica en cierta medida las malas condiciones de vida propias de un país con desigualdad en la distribución del ingreso. Por otro lado, variables como la exportación de metales y minerales con respecto al total de exportaciones no explica la desigualdad, por lo cual es posible afirmar que la desigualdad no es un fenómeno exclusivo de países exportadores de materias primas. Es posible establecer 3 correlaciones fuertes o medianamente fuertes, por lo cual la desigualdad en la distribución del ingreso se explica por el desempleo, el embarazo adolescente y la mortalidad. 
+
+
+Con respecto a la reducción de la dimensionalidad, el análisis factorial de las variables nos indica que es posible reducirlas a tres factores, que presentan cierta similtud en sus ámbitos, y provienen de sólo algunas variables de la investigación con significancia estadística. Por un lado, se encuentra el factor demográfico (RM1), que se compone del porcentaje de población urbana y la tasa de embarazo adolescente. En segundo lugar, se encuentra el factor laboral (MR2), compuesto por la fuerza laboral y la tasa de desempleo. Por último, se encuentra el factor MR3 que agrupa variables sin mucha relación entre sí: la tasa de mortalidad y el porcentaje de gasto en educación. La variable fuerza laboral es la que tiende a agruparse más con otras, a diferencia de la exportación de metales y minerales. En relación al análisis de conglomerados, R recomienda agrupar los casos en dos clusters. El segundo cluster contiene un menor número de casos, y existen pocos casos mal clusterizados, por lo cual es posible concluir que las variables escogidas no proporcionan un adecuado modelo para el análisis de conglomerados.
 
