@@ -241,6 +241,15 @@ Luego evidenciamos las correlaciones:
 ```{r}
 cor(datafinal[,c(2:11)]) 
 ```
+## Preparación de los datos para la clusterización
+```{r}
+dataClus=datafinal[,c(3:11)]
+row.names(dataClus)=datafinal$country
+```
+```{r, echo=FALSE}
+library(cluster)
+g.dist = daisy(dataClus, metric="gower")
+```
 # Proceso de clusterización
 
 ## Para realizar el proceso de clusterización se hará uso de la Estrategia Jerárquica - divisiva
