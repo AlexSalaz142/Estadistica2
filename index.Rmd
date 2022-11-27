@@ -328,6 +328,7 @@ Con respecto a la reducción de la dimensionalidad, el análisis factorial de la
 Por un lado, se encuentra el factor demográfico (RM1), que se compone del porcentaje de población urbana y la tasa de embarazo adolescente. En segundo lugar, se encuentra el factor laboral (MR2), compuesto por la fuerza laboral y la tasa de desempleo. 
 Por último, se encuentra el factor MR3 que agrupa variables sin mucha relación entre sí: la tasa de mortalidad y el porcentaje de gasto en educación. La variable fuerza laboral es la que tiende a agruparse más con otras, a diferencia de la exportación de metales y minerales. 
 
+
 En relación al análisis de conglomerados, R recomienda agrupar los casos en dos clusters. 
 El segundo cluster contiene un menor número de casos, y existen pocos casos mal clusterizados, por lo cual es posible concluir que las variables escogidas no proporcionan un adecuado modelo para el análisis de conglomerados.
 
