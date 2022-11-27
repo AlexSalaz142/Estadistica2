@@ -62,5 +62,5 @@ Bases de datos utilizadas para el análisis:
 - *index.Rmd*: Rmd con el proceso de análisis
 - *index.html*: Página web creada a partir de index.Rmd
 
-Github page: 
+Github pages: https://alexsalaz142.github.io/TrabajoE2/
 
