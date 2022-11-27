@@ -13,7 +13,20 @@ El tema a tratar es la desigualdad del ingreso de cada país. Nuestra variable d
 El coeficiente de Gini fue elegido debido a que permite conocer de qué manera se distribuyen los ingresos entre los habitantes de un país. Mientras más alto sea el
 coeficiente, mayor desigualdad se presentará.
 
-Base de datos: CIA (Gini.coeff)
+Base de datos utilizadas para el análisis: 
+CIA: *Guide to Country Comparison* (https://www.cia.gov/the-world-factbook/references/guide-to-country-comparisons/)
+      - Coeficiente del índice GINI-distribución del ingreso familiar (Gini.coeff.csv)
+      - Fuerza Laboral (laborforce.csv)
+Banco Mundial: *Indicators* (https://data.worldbank.org/indicator)
+      - Población en aglomeraciones urbanas de más de 1 millón (% de la población total) (urban_pop.csv)
+      - Exportaciones de minerales y metales (% de las exportaciones de mercancías) (export.csv)
+      - Matrícula escolar, primaria y secundaria (bruta), índice de paridad de género (IPG) (school_enr.csv)
+      - Madres adolescentes (% de mujeres de 15 a 19 años que han tenido hijos o están actualmente embarazadas) (embarazo.csv)
+      - Tasa de mortalidad en un año (por cada 1.000 personas) (death_rate.csv)
+      - Gasto público en educación, total (% del gasto del gobierno) (Education_expenditure.csv)
+      - Desempleo, total (% de la población activa total) (Unemployment_rate.csv)
+The Economist Intelligence Unit (https://country.eiu.com/All)
+      - Índice de democracia al año 2020 (Demo_index)
 
 ### Variables Independientes:
 
