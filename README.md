@@ -19,21 +19,21 @@ Bases de datos utilizadas para el análisis:
 
 1. CIA: *Guide to Country Comparison* (https://www.cia.gov/the-world-factbook/references/guide-to-country-comparisons/)
 
-      - Coeficiente del índice GINI-distribución del ingreso familiar (variable dependiente) (Gini_coeff.csv)
-      - Fuerza Laboral (laborforce.csv)
+      - Coeficiente del índice GINI-distribución del ingreso familiar (variable dependiente) (*Gini_coeff.csv*)
+      - Fuerza Laboral (*laborforce.csv*)
 
 2. Banco Mundial: *Indicators* (https://data.worldbank.org/indicator)
 
-      - Población en aglomeraciones urbanas de más de 1 millón (% de la población total) (urban_pop.csv)
-      - Exportaciones de minerales y metales (% de las exportaciones de mercancías) (export.csv)
-      - Matrícula escolar, primaria y secundaria (bruta), índice de paridad de género (IPG) (school_enr.csv)
-      - Madres adolescentes (% de mujeres de 15 a 19 años que han tenido hijos o están actualmente embarazadas) (embarazo.csv)
-      - Tasa de mortalidad en un año (por cada 1.000 personas) (death_rate.csv)
-      - Gasto público en educación, total (% del gasto del gobierno) (Education_expenditure.csv)
-      - Desempleo, total (% de la población activa total) (Unemployment_rate.csv)
+      - Población en aglomeraciones urbanas de más de 1 millón (% de la población total) (*urban_pop.csv*)
+      - Exportaciones de minerales y metales (% de las exportaciones de mercancías) (*export.csv*)
+      - Matrícula escolar, primaria y secundaria (bruta), índice de paridad de género (IPG) (*school_enr.csv*)
+      - Madres adolescentes (% de mujeres de 15 a 19 años que han tenido hijos o están actualmente embarazadas) (*embarazo.csv*)
+      - Tasa de mortalidad en un año (por cada 1.000 personas) (*death_rate.csv*)
+      - Gasto público en educación, total (% del gasto del gobierno) (*Education_expenditure.csv*)
+      - Desempleo, total (% de la población activa total) (*Unemployment_rate.csv*)
 
 3. The Economist Intelligence Unit (https://country.eiu.com/All)
-      - Índice de democracia al año 2020 (Demo_index)
+      - Índice de democracia al año 2020 (*Demo_index*)
 
 ### Justificación de las Variables Independientes:
 
