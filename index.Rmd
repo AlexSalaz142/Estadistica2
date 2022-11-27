@@ -277,7 +277,7 @@ fviz_nbclust(dataClus, hcut,diss=g.dist,method = "gap_stat",k.max = 10,verbose =
 Se realiza la clusterización:
 ```{r, echo=FALSE}
 set.seed(123)
-res.diana <- hcut(g.dist, k = 4,hc_func='diana')
+res.diana <- hcut(g.dist, k = 2,hc_func='diana')
 dataClus$diana=res.diana$cluster
 head(dataClus,15)
 ```
