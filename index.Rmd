@@ -241,12 +241,12 @@ Con este análisis queremos si los países presentan similitudes de acuerdo a nu
 Como primer paso, hay que normalizar la data:
 ```{r}
 library(BBmisc)
-datafinal[,c(2:11)]= normalize(datafinal[,c(2:11)],method='standardize')
+datafinal[,c(3:11)]= normalize(datafinal[,c(3:11)],method='standardize')
 ```
 
 Luego evidenciamos las correlaciones:
 ```{r}
-cor(datafinal[,c(2:11)]) 
+cor(datafinal[,c(3:11)]) 
 ```
 
 Finalmente, se subseteará la data pertinente para la clusterización:
@@ -254,10 +254,7 @@ Finalmente, se subseteará la data pertinente para la clusterización:
 dataClus=datafinal[,c(3:11)]
 row.names(dataClus)=datafinal$country
 ```
-```{r, echo=FALSE}
-library(cluster)
-g.dist = daisy(dataClus, metric="gower")
-```
+
 ## Proceso de clusterización
 
 Para realizar el proceso de clusterización se hará uso de la Estrategia Jerárquica - divisiva, mediante la cual todos los casos empezarán como un gran cluster y de ahí se dividirán en clusters más pequeños.
