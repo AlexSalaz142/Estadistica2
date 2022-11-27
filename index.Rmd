@@ -1,14 +1,19 @@
 ---
-title: "index"
-output: html_document
-date: '2022-10-30'
----
+title: "Análisis de factores que influyen en el índice de democracia"
+author: "Alexander Salazar, Sebastian Calero, Gianfranco Polar"
+date: "2022-10-30"
+output:
 
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    toc: yes
+subtitle: "Curso: POL304 - Estadística para el análisis político 2"
+---
+## Introducción
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
-## Introducción
 
 La siguiente investigación analiza los factores que pueden profundizar la desigualdad de ingreso en la sociedad. Aquí se analizarán tres posibles tipos de factores; laborales, sociales y económicos.  El factor social será medido a través del nivel de democratización, población urbana, embarazo adolescente, matrícula escolar y mortalidad; el factor laboral se mide a través de la tasa de desempleo y fuerza de trabajo, y el factor económico por medio del nivel de exportaciones y gasto en educación. 
 
@@ -236,5 +241,39 @@ Luego evidenciamos las correlaciones:
 ```{r}
 cor(datafinal[,c(2:11)]) 
 ```
+# Proceso de clusterización
+
+## Para realizar el proceso de clusterización se hará uso de la Estrategia Jerárquica - divisiva
+
+Primero, se decidirá la cantidad de cluster a utilizar mediante una solicitud usando el estadístico 'gap'
+
+```{r, echo=FALSE}
+library(factoextra)
+fviz_nbclust(dataClus, hcut,diss=g.dist,method = "gap_stat",k.max = 10,verbose = F,hc_func = "diana")
+```
+
+## Clusterizar vía DIANA
+
+```{r, echo=FALSE}
+set.seed(123)
+res.diana <- hcut(g.dist, k = 4,hc_func='diana')
+dataClus$diana=res.diana$cluster
+head(dataClus,15)
+```
+
+```{r, echo=FALSE}
+fviz_silhouette(res.diana,print.summary = F)
+
+```
+* Nótese que no se presentan valores mal clusterizados; por ende, no habrá necesidad de evaluar los resultados.
+
+## Verificando Etiqueta
+* A continuación, exploraremos el promedio de cada cluster.
+
+```{r, echo=FALSE}
+aggregate(.~ diana, data=dataClus,mean)
+```
+
+
 
 ## 5. Conclusiones
