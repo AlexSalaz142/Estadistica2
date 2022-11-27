@@ -10,7 +10,7 @@ output:
     toc: yes
 subtitle: "Curso: POL304 - Estadística para el análisis político 2"
 ---
-## Introducción
+# Introducción
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -23,13 +23,13 @@ library(rio)
 datafinal=import("https://github.com/AlexSalaz142/TrabajoE2/raw/main/datafinal.csv")
 ```
 
-## 1. Análisis rápido de la data
+# 1. Análisis rápido de la data
 
 A primera vista, se puede ver como países con un nivel de desempleo medianamente alto también presentan un nivel medinamente alto de desigualdad económica, como es el caso de Eswatini, Botswana o Lesotho. Por otra parte, países con un alto índice de la democracia como Noruega, Islanda, Suiza o Finlandia presentan niveles de desigualdad reducidas. Finalmente, parecería no haber relación entre la desigualdad y el gasto en educación ya que países con una inversión menor como Angola o Papua Nueva Guinea muestran una desigualdad de ingreso similar a paises con gastos mayores como Costa Rica o Hong Kong. No obstante, estas son primeras impresiones que resultan poco confiables en tanto seleccionamos casos que respaldan nuestras hipótesis y por lo tanto deben ser confirmadas por un análisis de correlaciones. 
 
 En la introducción identificamos tres tipos de factores. Sin embargo, lo particular de estas variables presentadas es que pueden evaluarse de forma transversal (como es el caso del gasto en educación que tiene tanto una afectación social como una explicación económica), por lo que un análisis factorial nos permitirá confirmar a que área se acerca más cada variable.
 
-## 2. Modelación
+# 2. Modelación
 En este caso, se realizará una regresión lineal múltiple.
 
 Modelo 1: 
@@ -149,7 +149,7 @@ Por su parte, la hipótesis de que el embarazo adolescente implica mayor desigua
 Por último, el argumento de que la afectación del desempleo en la desigualdad del ingreso debería considerarse de manera sistemática debe no ser rechazado, pero si cuestionarse. Si, por el contrario, el modelo hubiese arrojado que no existía una correlación entre estas variables, ello podría interpretarse como que el nivel de desarrollo entendido en términos de estabilidad laboral o no se relaciona con la desigualdad económica, o no se evidencia en la realidad. Dado que ese no es el caso, es más fácil suponer que los países con menores tasas de desempleo (que en su mayoría se tratarían de países desarrollados) son menos desiguales. Pero, consideramos que no hay que caer en el error de imponerla como una variable causal, pues el análisis de correlación no toma en cuenta la relación con las otras variables como la democratización, lo cual se intentará resolver adelante con el análisis factorial.
 
 
-## 3. Análisis factorial
+# 3. Análisis factorial
 
 En esta sección deseamos evaluar si es posible reducir neustras variables a otras más simples. Como se mencionó al principio, consideramos que la desigualdad se explica por tres tipos de factores, por lo que aquí se mostrará si esta interpretación es correcta.
 
@@ -287,7 +287,15 @@ fviz_silhouette(res.diana,print.summary = F)
 ```
 
 Con este gráfico podemos evidenciar barras que representan cada caso analizado, o sea los países. Mientras más baja la barra es menos probable que el país guarde similitudes con el resto de casos del subgrupo y los que se encuentran por debajo del 0 se tratan de países mal clusterizados, los cuales se tratan de los casos que, de acuerdo al análisis, no pertenecen a ningun grupo, pero son forzados por la prueba a serlo. 
-* Nótese que, afortunadamente, no se presentan valores mal clusterizados.
+
+* Lamentablemente, se muestran ciertos casos mal clusterizados, por lo que es preciso identificarlos:
+
+```{r}
+silDIANA=data.frame(res.diana$silinfo$widths)
+silDIANA$country=row.names(silDIANA)
+poorDIANA=silDIANA[silDIANA$sil_width<0,'country']%>%sort()
+poorDIANA
+```
 
 ### Verificando Etiqueta
 * A continuación, exploraremos el promedio de cada cluster.
@@ -295,7 +303,23 @@ Con este gráfico podemos evidenciar barras que representan cada caso analizado,
 ```{r, echo=FALSE}
 aggregate(.~ diana, data=dataClus,mean)
 ```
+Las etiquetas no muestran un orden, por lo que hay que reconfigurarlo:
 
+```{r}
+original=aggregate(.~ diana, data=dataClus,mean)
+original[order(original$urb_pop),]
+```
+```{r}
+dataClus$diana=dplyr::recode(dataClus$diana, `3` = 1, `1`=2,`2`=3,`4`=4)
+```
 
+Guardemos la columna de DIANA en la data integrada y la eliminamos de dataClus.
+
+```{r}
+datafinal$dianaGINIpoor=datafinal$country%in%poorDIANA
+datafinal$dianaGINI=as.ordered(dataClus$diana)
+dataClus$diana=NULL
+```
 
 # 5. Conclusiones
+
