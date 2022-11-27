@@ -304,15 +304,7 @@ poorDIANA
 ```{r, echo=FALSE}
 aggregate(.~ diana, data=dataClus,mean)
 ```
-Las etiquetas no muestran un orden, por lo que hay que reconfigurarlo:
-
-```{r}
-original=aggregate(.~ diana, data=dataClus,mean)
-original[order(original$urb_pop),]
-```
-```{r}
-dataClus$diana=dplyr::recode(dataClus$diana, `3` = 1, `1`=2,`2`=3,`4`=4)
-```
+Las etiquetas sí muestran un orden, por lo que no hay que reconfigurarlo:
 
 Guardemos la columna de DIANA en la data integrada y la eliminamos de dataClus.
 
