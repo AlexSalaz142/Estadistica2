@@ -304,7 +304,7 @@ poorDIANA
 ```{r, echo=FALSE}
 aggregate(.~ diana, data=dataClus,mean)
 ```
-Las etiquetas sí muestran un orden, por lo que no hay que reconfigurarlo:
+Las etiquetas sí muestran un orden, por lo que no hay que reconfigurarlo.
 
 Guardemos la columna de DIANA en la data integrada y la eliminamos de dataClus.
 
