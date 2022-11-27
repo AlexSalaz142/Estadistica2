@@ -1,5 +1,5 @@
 ---
-title: "Análisis de factores que influyen en el índice de democracia"
+title: "Análisis de factores que influyen en el índice GINI"
 author: "Alexander Salazar, Sebastian Calero, Gianfranco Polar"
 date: "2022-10-30"
 output:
