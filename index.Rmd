@@ -13,6 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 La siguiente investigación analiza los factores que pueden profundizar la desigualdad de ingreso en la sociedad. Aquí se analizarán tres posibles tipos de factores; laborales, sociales y económicos.  El factor social será medido a través del nivel de democratización, población urbana, embarazo adolescente, matrícula escolar y mortalidad; el factor laboral se mide a través de la tasa de desempleo y fuerza de trabajo, y el factor económico por medio del nivel de exportaciones y gasto en educación. 
 
 ```{r}
+rm(list = ls())
 library(rio)
 datafinal=import("https://github.com/AlexSalaz142/TrabajoE2/raw/main/datafinal.csv")
 ```
@@ -138,7 +139,7 @@ Vemos como los intervalos de mortalidad, embarazo adolescente y desemplo son las
 
 A partir de todo esto, concluimos que la tesis de que una alta tasa de mortalidad implica ingresos más desiguales debe ser rechazada. Es cierto que si existe una menor tasa de mortalidad existirá mayor cantidad de gente que pueda generar más ingresos, pero habría que identificar en qué grupos etarios se focaliza esta mortilidad, puesto que, dependiendo de la edad, una persona percibe más o menos ingresos o no los recibe en absoluto. En ese sentido, por muy cínico que suene, habría que evaluar en que mayor medida el fallecimiento de unas personas por sobre el de otras afecta al ingreso familiar. Un objetivo posterior consistiría por tanto en descubrir que características de la persona determinan el nivel de afectación.
 
-Por su parte, la hipótesis de que el embarazo adolescente implica mayor desigualdad puede considerarse como correcta. El caso es que, las adolescentes que quedan embarazadas encuentran complicaciones con el seguimiento de estudios, lo que a su vez implica una limitación a la empleabilidad. Además, en tanto un hij@ acarrea consigo un aumento a los gastos familiares, por lo que el ingreso neto percibido será menor. 
+Por su parte, la hipótesis de que el embarazo adolescente implica mayor desigualdad puede considerarse como correcta. El caso es que, las adolescentes que quedan embarazadas encuentran complicaciones con el seguimiento de estudios, lo que a su vez implica una limitación a la empleabilidad. Además, un hij@ acarrea consigo un aumento a los gastos familiares, por lo que el ingreso percibido tras la cobertura de los gastos es finalmente menor al ingreso neto de quien no tiene una responabilidad con un menor. 
 
 Por último, el argumento de que la afectación del desempleo en la desigualdad del ingreso debería considerarse de manera sistemática debe no ser rechazado, pero si cuestionarse. Si, por el contrario, el modelo hubiese arrojado que no existía una correlación entre estas variables, ello podría interpretarse como que el nivel de desarrollo entendido en términos de estabilidad laboral o no se relaciona con la desigualdad económica, o no se evidencia en la realidad. Dado que ese no es el caso, es más fácil suponer que los países con menores tasas de desempleo (que en su mayoría se tratarían de países desarrollados) son menos desiguales. Pero, consideramos que no hay que caer en el error de imponerla como una variable causal, pues el análisis de correlación no toma en cuenta la relación con las otras variables como la democratización, lo cual se intentará resolver adelante con el análisis factorial.
 
@@ -149,7 +150,7 @@ Por último, el argumento de que la afectación del desempleo en la desigualdad 
 
 Primero substeamos la data para quedarnos con las variables de interés:
 ```{r}
-dontselect=c("country","gini")
+dontselect=c("country","gini", "DemoIndex") #No incluiremos el índice de la Democracia por tratarse de una variable latente en sí misma, construida a partir de variables propias.
 select=setdiff(names(datafinal),dontselect) 
 theData=datafinal[,select]
 ```
@@ -170,12 +171,10 @@ Con este gráfico se visualiza que la formación de factores no es del todo clar
 Igualmente es imprescindible verificar si las datos permiten la factorización:
 ```{r}
 library(psych)
-psych::KMO(corMatrix) 
+psych::KMO(corMatrix)
 ```
-El MSA (medida de suficiencia de la muestra) general (0.55) resulta despreciable (>= 0.50), por lo cual no llega a ser del todo conveniente el análisis factorial.
-
-De todas formas seguiremos el procedimiento, para observar el resultado final.
-
+El MSA (medida de suficiencia de la muestra) general (0.43) resulta adecuado (>= 0.40), por lo cual el análisis factorial resultaría pertinente. Sin embargo, hemos de advertir que ciertas variables (la tasa de matrícula escolar y de la fuerza laboral) presentan inconvenientes con el hecho de superar la medida de suficiencia mínima, por lo cual es probable que sean eliminadas del análisis. Más adelante confirmaremos si esta dificultad persiste.
+ 
 Se verifica si la matriz de correlación es adecuada, rechazando nuestras 2 hipótesis nulas:
 
 H1: Se trata de una matriz de identidad (Esfericidad de Bartlett):
@@ -189,30 +188,53 @@ is.singular.matrix(corMatrix)
 ```
 Confirmamos que no nos encontramos ante una matriz que lleve a la indeterminación, por lo que el análisis factorial es factible. 
 
-Buscamos que R nos sugiera en cuántos factores se puede redimensionar la data:
-```{r}
-fa.parallel(theData, fa = 'fa',correct = T,plot = F)
-```
-Lamentablemente, se sugiere la creación de una sola variable latente, lo cual no nos lleva a resultados tan interesantes. Esto sucede porque porque varias de las variables independientes apenas presentan una MSA superior a 0.50, con lo cual se alejan bastante de una relación ideal teniendo en cuenta que incluso un MSA inferior a 0.70 es mediocre.
-
-De acuerdo al resultado anterior, redimensionamos la data:
+De esta manera, podemos pasar a redimensionamos la data de acuerdo a nuestra hipótesis inicial sobre 3 tipos de factores:
 ```{r}
 library(GPArotation)
 resfa <- fa(theData,
-            nfactors = 1,
+            nfactors = 3,
             cor = 'mixed',
             rotate = "varimax",
             fm="minres")
 print(resfa$loadings)
 ```
+La varianza acumulada nos muestra que se a recuperado un 41% de los datos, por lo cual no estamos ante una muy buena representación de la realidad.
+
+Podemos establecer un mínimo para los scores (>0.5) para identificar claramente qué variables se adecúan más a los factores.
+```{r}
+print(resfa$loadings, cutoff = 0.5)
+```
+Vemos que tan solo 4 variables superan esta valla, lo que sugiere que la agrupación no es del todo adecuada.
+
 La agrupación se visibiliza con mayor claridad en el siguiente gráfico:
 ```{r}
 fa.diagram(resfa,main = "Resultados del EFA")
 ```
-De ello se saca que el índice de democracia, el porcentaje de población urbana, el embarazo adolescente, el porcentaje de gasto en educación y la tasa de mortalidad se agrupan en un factor, el cual podríamos considerar como el factor social. 
+De ello se saca que el porcentaje de población urbana, de embarazo adolescente, de gasto en educación y la tasa de mortalidad se agrupan en un factor, el cual podríamos considerar como el factor social. Por el otro lado, el porcentaje de fuerza laboral y de desempleo se agrupan en un segundo factor, el cual habíamos previsto como el factor laboral. Por último, el porcentaje de exportación de metales y minerales y la tasa de matrícula escolar se quedan fuera de la agrupación, por lo que, teóricamente, podría descartarse del estudio. 
 
-Evaluamos el aporte de las variables al único factor:
+Evaluamos la contribución de las variables a la formación de factores:
 ```{r}
 sort(resfa$communality)
 ```
-De esto se concluye que el índice de la democracia es el que contribuye más a la formación del factor.
+De esta prueba se resuelve que la fuerza laboral es la variable que más tiende a agruparse con las demás variables. Por el otro lado, la variable con la menor comunalidad se trata del porcentaje de exportaciones de metales y minerales, por es la principal variable a ser considerada como no apta para el estudio.
+
+Evaluamos qué variables aportan a más de un factor:
+```{r}
+sort(resfa$complexity)
+```
+Resulta que la variable más compleja es la tasa de matrícula escolar, lo que implica que es la que más tiende a pertencer a ambos factores, pero en sí misma no pertenece claramente a ninguno. Por su parte, la variable con menor probabilidad de acercarse a más de un factor es el porcentaje de población urbana, la cual pertenecería de forma rígida al primer factor.
+
+## 4. Analisis Conglomerados
+
+Normalizamos la data:
+```{r}
+library(BBmisc)
+datafinal[,c(2:11)]= normalize(datafinal[,c(2:11)],method='standardize')
+```
+
+Luego evidenciamos las correlaciones:
+```{r}
+cor(datafinal[,c(2:11)]) 
+```
+
+## 5. Conclusiones
