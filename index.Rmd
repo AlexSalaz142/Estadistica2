@@ -332,3 +332,4 @@ Por último, se encuentra el factor MR3 que agrupa variables sin mucha relación
 En relación al análisis de conglomerados, R recomienda agrupar los casos en dos clusters. 
 El segundo cluster contiene un menor número de casos, y existen pocos casos mal clusterizados, por lo cual es posible concluir que las variables escogidas no proporcionan un adecuado modelo para el análisis de conglomerados.
 
+
